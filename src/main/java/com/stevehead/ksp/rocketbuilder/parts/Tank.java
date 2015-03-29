@@ -82,44 +82,6 @@ public class Tank implements Expendable {
 	}
 	
 	/**
-	 * @return		dry mass in kg
-	 */
-	public double getDryMass() {
-		return dryMass;
-	}
-	
-	/**
-	 * @return		total mass in kg
-	 */
-	public double getTotalMass() {
-		return totalMass;
-	}
-	
-	/**
-	 * @return		current mass in kg
-	 */
-	public double getMass() {
-		return mass;
-	}
-	
-	/**
-	 * @param mass		the new current mass in kg
-	 */
-	public void setMass(double mass) {
-		mass = Math.max(mass, getDryMass());
-		mass = Math.min(mass, getTotalMass());
-		this.mass = mass;
-	}
-	
-	/**
-	 * @param mass		the change in mass in kg
-	 */
-	public void changeMass(double massChange) {
-		double mass = this.mass + massChange;
-		setMass(mass);
-	}
-	
-	/**
 	 * Helper method that determines the tank type from the propellants used.
 	 * Full functionality may be added gradually.
 	 * 
@@ -162,6 +124,29 @@ public class Tank implements Expendable {
 		}
 		
 		throw new IllegalArgumentException("Invalid propellant combination.");
+	}
+	
+	public double getDryMass() {
+		return dryMass;
+	}
+	
+	public void changeMass(double massChange) {
+		double mass = this.mass + massChange;
+		setMass(mass);
+	}
+	
+	public double getMass() {
+		return mass;
+	}
+	
+	public void setMass(double mass) {
+		mass = Math.max(mass, getDryMass());
+		mass = Math.min(mass, getTotalMass());
+		this.mass = mass;
+	}
+	
+	public double getTotalMass() {
+		return totalMass;
 	}
 	
 	/**

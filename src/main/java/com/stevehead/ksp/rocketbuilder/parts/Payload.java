@@ -20,9 +20,6 @@ public class Payload implements Massable {
 		this.mass = mass;
 	}
 	
-	/**
-	 * @return		mass in kg
-	 */
 	public double getMass() {
 		return mass;
 	}

@@ -225,6 +225,11 @@ public enum Engine implements Thrustable {
 		return isp * ispScaler;
 	}
 	
+	public void changeMass(double massChange) {
+		double mass = this.mass + massChange;
+		setMass(mass);
+	}
+	
 	public double getMass() {
 		return mass;
 	}
@@ -233,11 +238,6 @@ public enum Engine implements Thrustable {
 		mass = Math.max(mass, getDryMass());
 		mass = Math.min(mass, getTotalMass());
 		this.mass = mass;
-	}
-	
-	public void changeMass(double massChange) {
-		double mass = this.mass + massChange;
-		setMass(mass);
 	}
 	
 	public double getDryMass() {
