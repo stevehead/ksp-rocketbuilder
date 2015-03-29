@@ -78,11 +78,6 @@ public enum Engine implements Thrustable {
 	private final double size;
 	
 	/**
-	 * The fuel tank booster.
-	 */
-	private final Tank fuelTank;
-	
-	/**
 	 * The curent mass.
 	 */
 	private double mass;
@@ -99,7 +94,7 @@ public enum Engine implements Thrustable {
 	 * @param size			the diameter of the engine in meters
 	 * @param fuelTank		the fuel tank booster
 	 */
-	private Engine(String name, Mod mod, double dryMass, double totalMass, double thrust, double isp, double size, Tank fuelTank) {
+	private Engine(String name, Mod mod, double dryMass, double totalMass, double thrust, double isp, double size) {
 		this.name = name;
 		this.mod = mod;
 		this.dryMass = dryMass;
@@ -107,7 +102,6 @@ public enum Engine implements Thrustable {
 		this.thrust = thrust;
 		this.isp = isp;
 		this.size = size;
-		this.fuelTank = fuelTank;
 		this.mass = totalMass;
 	}
 	
@@ -117,10 +111,9 @@ public enum Engine implements Thrustable {
 	 * @param mass			the engine's mass in kg
 	 * @param thrust		the thrust in Newtons
 	 * @param isp			the specific impulse in seconds
-	 * @param fuelTank		the fuel tank booster
 	 */
 	Engine(String name, Mod mod, double mass, double thrust, double isp, double size) {
-		this(name, mod, mass, mass, thrust, isp, size, null);
+		this(name, mod, mass, mass, thrust, isp, size);
 	}
 	
 	/**
@@ -132,18 +125,7 @@ public enum Engine implements Thrustable {
 	 * @param fuelTank		the fuel tank booster
 	 */
 	Engine(String name, Mod mod, double thrust, double isp, double size, Tank fuelTank) {
-		this(name, mod, fuelTank.getDryMass(), fuelTank.getTotalMass(), thrust, isp, size, fuelTank);
-	}
-	
-	/**
-	 * Determines if the tank has a fuel tank.
-	 * 
-	 * @return		<code>true</code> if the engine has a fuel tank;
-	 * 				<code>false</code> otherwise.
-	 */
-	public boolean hasFuelTank() {
-		if (fuelTank != null) return true;
-		return false;
+		this(name, mod, fuelTank.getDryMass(), fuelTank.getTotalMass(), thrust, isp, size);
 	}
 	
 	/**
@@ -221,8 +203,12 @@ public enum Engine implements Thrustable {
 		return isp * Math.log(getTotalMass() / getDryMass());
 	}
 	
+	public double getDryMass() {
+		return dryMass;
+	}
+	
 	public double getIsp() {
-		return isp * ispScaler;
+		return isp * getIspScaler();
 	}
 	
 	public void changeMass(double massChange) {
@@ -238,10 +224,6 @@ public enum Engine implements Thrustable {
 		mass = Math.max(mass, getDryMass());
 		mass = Math.min(mass, getTotalMass());
 		this.mass = mass;
-	}
-	
-	public double getDryMass() {
-		return dryMass;
 	}
 	
 	public double getMaxTWR() {
