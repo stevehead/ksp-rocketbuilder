@@ -21,4 +21,18 @@ public interface Expendable extends Massable {
 	 * @return		the total mass in kg
 	 */
 	double getTotalMass();
+	
+	/**
+	 * Sets the current mass of the object.
+	 * 
+	 * @param mass		the current mass in kg
+	 */
+	void setMass(double mass);
+	
+	/**
+	 * Increments or decrements the current mass by an amount.
+	 * 
+	 * @param mass		the change in mass in kg
+	 */
+	void changeMass(double mass);
 }
