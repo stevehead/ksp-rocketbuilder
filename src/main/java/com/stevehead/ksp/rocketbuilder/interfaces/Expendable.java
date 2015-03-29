@@ -34,5 +34,5 @@ public interface Expendable extends Massable {
 	 * 
 	 * @param mass		the change in mass in kg
 	 */
-	void changeMass(double mass);
+	void changeMass(double massChange);
 }
