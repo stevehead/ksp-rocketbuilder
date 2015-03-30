@@ -55,6 +55,7 @@ public class EngineCluster implements Thrustable {
 		
 		this.dryMass = dryMass;
 		this.totalMass = totalMass;
+		this.mass = totalMass;
 		this.thrust = thrust;
 		this.isp = thrust / ispDenominator;
 	}
@@ -67,7 +68,7 @@ public class EngineCluster implements Thrustable {
 	}
 	
 	public double getDeltaV() {
-		return isp * Math.log(getTotalMass() / getDryMass());
+		return getIsp() * Math.log(getTotalMass() / getDryMass());
 	}
 	
 	public double getDryMass() {
@@ -79,7 +80,7 @@ public class EngineCluster implements Thrustable {
 	}
 	
 	public void changeMass(double massChange) {
-		double mass = this.mass + massChange;
+		double mass = getMass() + massChange;
 		setMass(mass);
 	}
 	
@@ -94,11 +95,11 @@ public class EngineCluster implements Thrustable {
 	}
 	
 	public double getMaxTWR() {
-		return KERBIN_GRAVITY * thrust / getDryMass();
+		return KERBIN_GRAVITY * getThrust() / getDryMass();
 	}
 	
 	public double getMinTWR() {
-		return KERBIN_GRAVITY * thrust / getTotalMass();
+		return KERBIN_GRAVITY * getThrust() / getTotalMass();
 	}
 	
 	public double getThrust() {

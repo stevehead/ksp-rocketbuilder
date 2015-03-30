@@ -200,7 +200,7 @@ public enum Engine implements Thrustable {
 	}
 	
 	public double getDeltaV() {
-		return isp * Math.log(getTotalMass() / getDryMass());
+		return getIsp() * Math.log(getTotalMass() / getDryMass());
 	}
 	
 	public double getDryMass() {
@@ -212,7 +212,7 @@ public enum Engine implements Thrustable {
 	}
 	
 	public void changeMass(double massChange) {
-		double mass = this.mass + massChange;
+		double mass = getMass() + massChange;
 		setMass(mass);
 	}
 	
@@ -227,11 +227,11 @@ public enum Engine implements Thrustable {
 	}
 	
 	public double getMaxTWR() {
-		return KERBIN_GRAVITY * thrust / getDryMass();
+		return KERBIN_GRAVITY * getThrust() / getDryMass();
 	}
 	
 	public double getMinTWR() {
-		return KERBIN_GRAVITY * thrust / getTotalMass();
+		return KERBIN_GRAVITY * getThrust() / getTotalMass();
 	}
 	
 	public double getThrust() {
