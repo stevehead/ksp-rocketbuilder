@@ -14,6 +14,13 @@ public class Payload implements Massable {
 	private final double mass;
 	
 	/**
+	 * Zero-argument contructor.
+	 */
+	protected Payload() {
+		this(0);
+	}
+	
+	/**
 	 * @param mass 		mass in kg
 	 */
 	public Payload(double mass) {
