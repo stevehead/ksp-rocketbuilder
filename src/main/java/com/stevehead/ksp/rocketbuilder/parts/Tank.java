@@ -2,8 +2,9 @@ package com.stevehead.ksp.rocketbuilder.parts;
 
 import com.stevehead.ksp.rocketbuilder.parts.Propellant;
 import com.stevehead.ksp.rocketbuilder.interfaces.Expendable;
+import com.stevehead.ksp.rocketbuilder.interfaces.PropellantRequired;
 
-public class Tank implements Expendable {
+public class Tank implements Expendable, PropellantRequired {
 	
 	/**
 	 * Current mass in kg.
@@ -143,6 +144,10 @@ public class Tank implements Expendable {
 		mass = Math.max(mass, getDryMass());
 		mass = Math.min(mass, getTotalMass());
 		this.mass = mass;
+	}
+	
+	public Propellant[] getPropellants() {
+		return propellants;
 	}
 	
 	public double getTotalMass() {
