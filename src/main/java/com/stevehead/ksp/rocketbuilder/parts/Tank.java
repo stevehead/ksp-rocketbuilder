@@ -57,7 +57,7 @@ public class Tank implements Expendable {
 	 * @param propellants	propellants used
 	 */
 	public Tank(double dryMass, double totalMass, Propellant... propellants) {
-		this(dryMass, totalMass, Type.AUTO);
+		this(dryMass, totalMass, Type.AUTO, propellants);
 	}
 	
 	/**
