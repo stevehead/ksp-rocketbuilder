@@ -1,5 +1,10 @@
 package com.stevehead.ksp.rocketbuilder.parts;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.apache.commons.collections4.ListUtils;
+
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 
 public class RocketStage extends Payload implements Thrustable {
@@ -24,6 +29,8 @@ public class RocketStage extends Payload implements Thrustable {
 	 */
 	private final double isp;
 	
+	private final Propellant[] propellants;
+	
 	/**
 	 * The current mass.
 	 */
@@ -31,6 +38,7 @@ public class RocketStage extends Payload implements Thrustable {
 	
 	public RocketStage(Payload payload, Tank fuelTank, Thrustable... engines) {
 		double dryMass, totalMass, thrust, ispDenominator;
+		ArrayList<Propellant> propellants = new ArrayList<Propellant>();
 		
 		dryMass = payload.getMass() + fuelTank.getDryMass();
 		totalMass = payload.getMass() + fuelTank.getTotalMass();
@@ -42,6 +50,7 @@ public class RocketStage extends Payload implements Thrustable {
 			totalMass += engine.getTotalMass();
 			thrust += engine.getThrust();
 			ispDenominator += engine.getThrust() / engine.getIsp();
+			ListUtils.union(propellants, new ArrayList<Propellant>(Arrays.asList(engine.getPropellants())));
 		}
 		
 		this.dryMass = dryMass;
@@ -49,6 +58,7 @@ public class RocketStage extends Payload implements Thrustable {
 		this.mass = totalMass;
 		this.thrust = thrust;
 		this.isp = thrust / ispDenominator;
+		this.propellants = propellants.toArray(this.propellants);
 	}
 
 	@Override
@@ -97,6 +107,11 @@ public class RocketStage extends Payload implements Thrustable {
 	@Override
 	public double getMaxTWR() {
 		return getThrust() / ( KERBIN_GRAVITY * getDryMass());
+	}
+	
+	@Override
+	public Propellant[] getPropellants() {
+		return propellants;
 	}
 
 	@Override
