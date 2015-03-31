@@ -2,6 +2,7 @@ package com.stevehead.ksp.rocketbuilder.parts;
 
 import java.util.ArrayList;
 
+import com.stevehead.ksp.rocketbuilder.interfaces.PropellantRequired;
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 import com.stevehead.ksp.rocketbuilder.parts.Propellant;
 import com.stevehead.ksp.rocketbuilder.parts.Tank;
@@ -13,19 +14,19 @@ import com.stevehead.ksp.rocketbuilder.parts.Tank;
  * @author Steve Johnson
  */
 public enum Engine implements Thrustable {
-	ROCKOMAX_48_7S					("Rockomax 48-7S", Mod.STOCK, 100, 30000, 350, 0.625),
-	LV_909_LIQUID_FUEL_ENGINE		("LV-909 Liquid Fuel Engine", Mod.STOCK, 500, 50000, 390, 1.25),
-	LV_T30_LIQUID_FUEL_ENGINE		("LV-T30 Liquid Fuel Engine", Mod.STOCK, 1250, 215000, 370, 1.25),
-	LV_T45_LIQUID_FUEL_ENGINE		("LV-T45 Liquid Fuel Engine", Mod.STOCK, 1500, 200000, 370, 1.25),
-	RAPIER_ENGINE					("R.A.P.I.E.R. Engine", Mod.STOCK, 1200, 175000, 360, 1.25),
-	TOROIDAL_AEROSPACE_ROCKET		("Toroidal Aerospike Rocket", Mod.STOCK, 1500, 175000, 390, 1.25),
-	LV_N_ATOMIC_ROCKET_MOTOR		("LV-N Atomic Rocket Motor", Mod.STOCK, 2250, 60000, 800, 1.25),
-	ROCKOMAX_POODLE_LIQUID_ENGINE	("Rockomax \"Poodle\" Liquid Engine", Mod.STOCK, 2000, 220000, 390, 2.5),
-	ROCKOMAX_SKIPPER_LIQUID_ENGINE	("Rockomax \"Skipper\" Liquid Engine", Mod.STOCK, 3000, 650000, 370, 2.5),
-	ROCKOMAX_MAINSAIL_LIQUID_ENGINE	("Rockomax \"Mainsail\" Liquid Engine", Mod.STOCK, 6000, 1500000, 360, 2.5),
+	ROCKOMAX_48_7S					("Rockomax 48-7S", Mod.STOCK, 100, 30000, 350, 0.625, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	LV_909_LIQUID_FUEL_ENGINE		("LV-909 Liquid Fuel Engine", Mod.STOCK, 500, 50000, 390, 1.25, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	LV_T30_LIQUID_FUEL_ENGINE		("LV-T30 Liquid Fuel Engine", Mod.STOCK, 1250, 215000, 370, 1.25, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	LV_T45_LIQUID_FUEL_ENGINE		("LV-T45 Liquid Fuel Engine", Mod.STOCK, 1500, 200000, 370, 1.25, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	RAPIER_ENGINE					("R.A.P.I.E.R. Engine", Mod.STOCK, 1200, 175000, 360, 1.25, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	TOROIDAL_AEROSPACE_ROCKET		("Toroidal Aerospike Rocket", Mod.STOCK, 1500, 175000, 390, 1.25, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	LV_N_ATOMIC_ROCKET_MOTOR		("LV-N Atomic Rocket Motor", Mod.STOCK, 2250, 60000, 800, 1.25, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	ROCKOMAX_POODLE_LIQUID_ENGINE	("Rockomax \"Poodle\" Liquid Engine", Mod.STOCK, 2000, 220000, 390, 2.5, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	ROCKOMAX_SKIPPER_LIQUID_ENGINE	("Rockomax \"Skipper\" Liquid Engine", Mod.STOCK, 3000, 650000, 370, 2.5, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	ROCKOMAX_MAINSAIL_LIQUID_ENGINE	("Rockomax \"Mainsail\" Liquid Engine", Mod.STOCK, 6000, 1500000, 360, 2.5, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
 	LFB_KR_1X2						("LFB KR-1x2", Mod.STOCK, 2000000, 380, 2.5, new Tank(10000, 42000, Propellant.LIQUID_FUEL, Propellant.OXIDIZER)),
-	KERBODYNE_KR_2L_ADVANCED_ENGINE	("Kerbodyne KR-2L Advanced Engine", Mod.STOCK, 6500, 2500000, 380, 3.75),
-	S3_KS_25X4_ENGINE_CLUSTER		("S3 KS-25x4 Engine Cluster", Mod.STOCK, 9750, 3200000, 360, 3.75);
+	KERBODYNE_KR_2L_ADVANCED_ENGINE	("Kerbodyne KR-2L Advanced Engine", Mod.STOCK, 6500, 2500000, 380, 3.75, Propellant.LIQUID_FUEL, Propellant.OXIDIZER),
+	S3_KS_25X4_ENGINE_CLUSTER		("S3 KS-25x4 Engine Cluster", Mod.STOCK, 9750, 3200000, 360, 3.75, Propellant.LIQUID_FUEL, Propellant.OXIDIZER);
 	
 	/**
 	 * Mod describes the set of engines from a game mod.
@@ -77,6 +78,8 @@ public enum Engine implements Thrustable {
 	 */
 	private final double size;
 	
+	private final Propellant[] propellants;
+	
 	/**
 	 * The curent mass.
 	 */
@@ -94,7 +97,7 @@ public enum Engine implements Thrustable {
 	 * @param size			the diameter of the engine in meters
 	 * @param fuelTank		the fuel tank booster
 	 */
-	private Engine(String name, Mod mod, double dryMass, double totalMass, double thrust, double isp, double size) {
+	private Engine(String name, Mod mod, double dryMass, double totalMass, double thrust, double isp, double size, Propellant... propellants) {
 		this.name = name;
 		this.mod = mod;
 		this.dryMass = dryMass;
@@ -103,6 +106,7 @@ public enum Engine implements Thrustable {
 		this.isp = isp;
 		this.size = size;
 		this.mass = totalMass;
+		this.propellants = propellants;
 	}
 	
 	/**
@@ -112,8 +116,8 @@ public enum Engine implements Thrustable {
 	 * @param thrust		the thrust in Newtons
 	 * @param isp			the specific impulse in seconds
 	 */
-	Engine(String name, Mod mod, double mass, double thrust, double isp, double size) {
-		this(name, mod, mass, mass, thrust, isp, size);
+	Engine(String name, Mod mod, double mass, double thrust, double isp, double size, Propellant... propellants) {
+		this(name, mod, mass, mass, thrust, isp, size, propellants);
 	}
 	
 	/**
@@ -125,7 +129,7 @@ public enum Engine implements Thrustable {
 	 * @param fuelTank		the fuel tank booster
 	 */
 	Engine(String name, Mod mod, double thrust, double isp, double size, Tank fuelTank) {
-		this(name, mod, fuelTank.getDryMass(), fuelTank.getTotalMass(), thrust, isp, size);
+		this(name, mod, fuelTank.getDryMass(), fuelTank.getTotalMass(), thrust, isp, size, fuelTank.getPropellants());
 	}
 	
 	/**
@@ -232,6 +236,10 @@ public enum Engine implements Thrustable {
 	
 	public double getMinTWR() {
 		return getThrust() / (KERBIN_GRAVITY * getTotalMass());
+	}
+	
+	public Propellant[] getPropellants() {
+		return propellants;
 	}
 	
 	public double getThrust() {
