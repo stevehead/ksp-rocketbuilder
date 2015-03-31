@@ -7,7 +7,7 @@ package com.stevehead.ksp.rocketbuilder.interfaces;
  * 
  * @author Steve Johnson
  */
-public interface Thrustable extends Expendable {
+public interface Thrustable extends Expendable, PropellantRequired {
 	/**
 	 * The ASL surface gravity of the planet Kerbin, in m/s^2
 	 */
