@@ -81,22 +81,22 @@ public class RocketStage extends Payload implements Thrustable {
 
 	@Override
 	public double getDeltaV() {
-		return getIsp() * Math.log(getTotalMass() / getDryMass());
+		return getIsp() * Math.log(getTotalMass() / getDryMass()) * KERBIN_GRAVITY;
 	}
 
 	@Override
 	public double getIsp() {
-		return isp * Engine.getIspScaler();
+		return isp;
 	}
 
 	@Override
 	public double getMinTWR() {
-		return KERBIN_GRAVITY * getThrust() / getTotalMass();
+		return getThrust() / (KERBIN_GRAVITY * getTotalMass());
 	}
 
 	@Override
 	public double getMaxTWR() {
-		return KERBIN_GRAVITY * getThrust() / getDryMass();
+		return getThrust() / ( KERBIN_GRAVITY * getDryMass());
 	}
 
 	@Override

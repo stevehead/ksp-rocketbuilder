@@ -68,7 +68,7 @@ public class EngineCluster implements Thrustable {
 	}
 	
 	public double getDeltaV() {
-		return getIsp() * Math.log(getTotalMass() / getDryMass());
+		return getIsp() * Math.log(getTotalMass() / getDryMass()) * KERBIN_GRAVITY;
 	}
 	
 	public double getDryMass() {
@@ -76,7 +76,7 @@ public class EngineCluster implements Thrustable {
 	}
 	
 	public double getIsp() {
-		return isp * Engine.getIspScaler();
+		return isp;
 	}
 	
 	public void changeMass(double massChange) {
@@ -95,11 +95,11 @@ public class EngineCluster implements Thrustable {
 	}
 	
 	public double getMaxTWR() {
-		return KERBIN_GRAVITY * getThrust() / getDryMass();
+		return getThrust() / (getDryMass() * KERBIN_GRAVITY);
 	}
 	
 	public double getMinTWR() {
-		return KERBIN_GRAVITY * getThrust() / getTotalMass();
+		return getThrust() / (getTotalMass() * KERBIN_GRAVITY);
 	}
 	
 	public double getThrust() {
