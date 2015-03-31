@@ -1,7 +1,10 @@
 package com.stevehead.ksp.rocketbuilder.parts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+
+import org.apache.commons.collections4.ListUtils;
 
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 
@@ -10,11 +13,13 @@ public class Rocket extends Payload implements Thrustable {
 	private final double dryMass;
 	private final double totalMass;
 	private final RocketStage[] stages;
+	private final Propellant[] propellants;
 	private int currentStage = 0;
 	
 	private Rocket(RocketStage... stages) {
 		double dryMass = 0;
 		double totalMass = 0;
+		ArrayList<Propellant> propellants = new ArrayList<Propellant>();
 		
 		if (stages.length < 1) {
 			throw new IllegalArgumentException("At least one stage is required.");
@@ -24,10 +29,12 @@ public class Rocket extends Payload implements Thrustable {
 		for (RocketStage stage : stages) {
 			dryMass += stage.getDryMass();
 			totalMass += stage.getTotalMass();
+			ListUtils.union(propellants, new ArrayList<Propellant>(Arrays.asList(stage.getPropellants())));
 		}
 		
 		this.dryMass = dryMass;
 		this.totalMass = totalMass;
+		this.propellants = propellants.toArray(this.propellants);
 	}
 	
 	public void stage() {
@@ -98,6 +105,11 @@ public class Rocket extends Payload implements Thrustable {
 	@Override
 	public double getMaxTWR() {
 		return stages[currentStage].getMaxTWR();
+	}
+	
+	@Override
+	public Propellant[] getPropellants() {
+		return propellants;
 	}
 
 	@Override
