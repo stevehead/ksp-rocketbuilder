@@ -1,5 +1,10 @@
 package com.stevehead.ksp.rocketbuilder.parts;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.apache.commons.collections4.ListUtils;
+
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 
 public class EngineCluster implements Thrustable {
@@ -29,6 +34,8 @@ public class EngineCluster implements Thrustable {
 	 */
 	private final double isp;
 	
+	private final Propellant[] propellants;
+	
 	/**
 	 * The curent mass.
 	 */
@@ -39,6 +46,7 @@ public class EngineCluster implements Thrustable {
 	 */
 	public EngineCluster(Engine... engines) {
 		double dryMass, totalMass, thrust, ispDenominator;
+		ArrayList<Propellant> propellants = new ArrayList<Propellant>();
 		this.engines = engines;
 		
 		dryMass = 0;
@@ -51,6 +59,7 @@ public class EngineCluster implements Thrustable {
 			totalMass += engine.getTotalMass();
 			thrust += engine.getThrust();
 			ispDenominator += engine.getThrust() / engine.getIsp();
+			ListUtils.union(propellants, new ArrayList<Propellant>(Arrays.asList(engine.getPropellants())));
 		}
 		
 		this.dryMass = dryMass;
@@ -58,6 +67,7 @@ public class EngineCluster implements Thrustable {
 		this.mass = totalMass;
 		this.thrust = thrust;
 		this.isp = thrust / ispDenominator;
+		this.propellants = propellants.toArray(this.propellants);
 	}
 	
 	/**
@@ -100,6 +110,10 @@ public class EngineCluster implements Thrustable {
 	
 	public double getMinTWR() {
 		return getThrust() / (getTotalMass() * KERBIN_GRAVITY);
+	}
+	
+	public Propellant[] getPropellants() {
+		return propellants;
 	}
 	
 	public double getThrust() {
