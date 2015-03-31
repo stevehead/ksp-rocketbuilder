@@ -34,7 +34,7 @@ public class Rocket extends Payload implements Thrustable {
 		
 		this.dryMass = dryMass;
 		this.totalMass = totalMass;
-		this.propellants = propellants.toArray(this.propellants);
+		this.propellants = propellants.toArray(new Propellant[propellants.size()]);
 	}
 	
 	public void stage() {

@@ -58,7 +58,7 @@ public class RocketStage extends Payload implements Thrustable {
 		this.mass = totalMass;
 		this.thrust = thrust;
 		this.isp = thrust / ispDenominator;
-		this.propellants = propellants.toArray(this.propellants);
+		this.propellants = propellants.toArray(new Propellant[propellants.size()]);
 	}
 
 	@Override
