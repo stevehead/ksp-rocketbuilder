@@ -61,6 +61,10 @@ public class Tank implements Expendable, PropellantRequired {
 		this(dryMass, totalMass, Type.AUTO, propellants);
 	}
 	
+	public Tank(double dryMass, double totalMass) {
+		this(dryMass, totalMass, Propellant.LIQUID_FUEL, Propellant.OXIDIZER);
+	}
+	
 	/**
 	 * Internal-use only constructor.
 	 * 

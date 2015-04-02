@@ -2,6 +2,7 @@ package com.stevehead.ksp.rocketbuilder.parts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.collections4.ListUtils;
 
@@ -38,7 +39,7 @@ public class RocketStage extends Payload implements Thrustable {
 	
 	public RocketStage(Payload payload, Tank fuelTank, Thrustable... engines) {
 		double dryMass, totalMass, thrust, ispDenominator;
-		ArrayList<Propellant> propellants = new ArrayList<Propellant>();
+		List<Propellant> propellants = new ArrayList<Propellant>();
 		
 		dryMass = payload.getMass() + fuelTank.getDryMass();
 		totalMass = payload.getMass() + fuelTank.getTotalMass();
@@ -50,7 +51,8 @@ public class RocketStage extends Payload implements Thrustable {
 			totalMass += engine.getTotalMass();
 			thrust += engine.getThrust();
 			ispDenominator += engine.getThrust() / engine.getIsp();
-			ListUtils.union(propellants, new ArrayList<Propellant>(Arrays.asList(engine.getPropellants())));
+			List<Propellant> thisPropellants = Arrays.asList(engine.getPropellants());
+			propellants = ListUtils.union(propellants, thisPropellants);
 		}
 		
 		this.dryMass = dryMass;

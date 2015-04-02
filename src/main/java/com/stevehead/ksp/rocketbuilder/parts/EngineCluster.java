@@ -1,6 +1,7 @@
 package com.stevehead.ksp.rocketbuilder.parts;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 
 import org.apache.commons.collections4.ListUtils;
@@ -12,7 +13,7 @@ public class EngineCluster implements Thrustable {
 	/**
 	 * Engines in cluster.
 	 */
-	private final Engine[] engines;
+	private final Thrustable[] engines;
 	
 	/**
 	 * The dry mass in kg.
@@ -44,9 +45,9 @@ public class EngineCluster implements Thrustable {
 	/**
 	 * @param engines		the engines in the cluster
 	 */
-	public EngineCluster(Engine... engines) {
+	public EngineCluster(Thrustable... engines) {
 		double dryMass, totalMass, thrust, ispDenominator;
-		ArrayList<Propellant> propellants = new ArrayList<Propellant>();
+		List<Propellant> propellants = new ArrayList<Propellant>();
 		this.engines = engines;
 		
 		dryMass = 0;
@@ -54,12 +55,13 @@ public class EngineCluster implements Thrustable {
 		thrust = 0;
 		ispDenominator = 0;
 		
-		for (Engine engine : engines) {
+		for (Thrustable engine : engines) {
 			dryMass += engine.getDryMass();
 			totalMass += engine.getTotalMass();
 			thrust += engine.getThrust();
 			ispDenominator += engine.getThrust() / engine.getIsp();
-			ListUtils.union(propellants, new ArrayList<Propellant>(Arrays.asList(engine.getPropellants())));
+			List<Propellant> thisPropellants = Arrays.asList(engine.getPropellants());
+			propellants = ListUtils.union(propellants, thisPropellants);
 		}
 		
 		this.dryMass = dryMass;
@@ -73,7 +75,7 @@ public class EngineCluster implements Thrustable {
 	/**
 	 * @return		the engines in the cluster
 	 */
-	public Engine[] getEngines() {
+	public Thrustable[] getEngines() {
 		return engines;
 	}
 	
