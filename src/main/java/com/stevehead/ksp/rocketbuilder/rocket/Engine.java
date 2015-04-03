@@ -117,7 +117,7 @@ public class Engine extends BaseThruster {
 	 * @author Steve Johnson
 	 */
 	public enum Mod {
-		STOCK, KW_ROCKETRY, AIES, NOVAPUNCH, KSPX
+		STOCK, KW_ROCKETRY, AIES, NOVAPUNCH, KSPX, CUSTOM
 	}
 	
 	/**
