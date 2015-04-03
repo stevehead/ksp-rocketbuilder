@@ -240,17 +240,41 @@ public class Engine extends Payload implements Thrustable {
 		THE_MATRIARCH								("The Matriarch", Mod.NOVAPUNCH, 13800, 4000000, 330, 5.0),
 		THE_MICRO_MOTHER							("The Micro Mother", Mod.NOVAPUNCH, 4500, 1000000, 370, 2.5);
 		
+		/**
+		 * The engine object.
+		 */
 		private final Engine engine;
 		
+		/**
+		 * @param name			the display name
+		 * @param mod			the KSP mod
+		 * @param dryMass		the dry mass in kg
+		 * @param mass			the mass in kg
+		 * @param thrust		the thrust in N
+		 * @param isp			the Isp in seconds
+		 * @param size			the diameter in meters
+		 * @param propellants	the propellants used
+		 */
 		PreDefined(String name, Mod mod, double dryMass, double mass, double thrust, double isp, double size, Propellant... propellants) {
 			this.engine = new Engine(name, mod, dryMass, mass, thrust, isp, size, propellants);
 		}
 		
+		/**
+		 * @param name			the display name
+		 * @param mod			the KSP mod
+		 * @param mass			the mass in kg
+		 * @param thrust		the thrust in N
+		 * @param isp			the Isp in seconds
+		 * @param size			the diameter in meters
+		 * @param propellants	the propellants used
+		 */
 		PreDefined(String name, Mod mod, double mass, double thrust, double isp, double size, Propellant... propellants) {
 			this(name, mod, mass, mass, thrust, isp, size, propellants);
 		}
 		
+		@Override
 		public Thrustable tweakScale(double scale) {
+			// If the scale is the same, then no point in re-creating the object.
 			if (scale != engine.getSize())
 			{
 				double ratio = scale / engine.getSize();
