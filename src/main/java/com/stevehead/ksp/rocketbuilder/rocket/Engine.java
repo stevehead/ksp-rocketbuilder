@@ -42,13 +42,7 @@ public class Engine extends BaseThruster {
 		this.thrust = thrust;
 		this.isp = isp;
 		this.size = size;
-		
-		if (propellants.length > 0) {
-			this.propellants = propellants;
-		} else {
-			this.propellants = DEFAULT_PROPELLANTS;
-		}
-		
+		this.propellants = determinePropellants(propellants);
 		this.minTWR = calculateTWR(getDryMass(), getThrust());
 		this.maxTWR = calculateTWR(getMass(), getThrust());
 	}

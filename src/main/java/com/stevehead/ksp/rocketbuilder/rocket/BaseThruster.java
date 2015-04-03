@@ -55,6 +55,20 @@ public abstract class BaseThruster extends BaseComponent implements Thrustable {
 		return thrust / (KERBIN_GRAVITY * mass);
 	}
 	
+	/**
+	 * Returns default propellents if no propellants are provided.
+	 * 
+	 * @param propellants	input propellants
+	 * @return				the determined propellants
+	 */
+	protected Propellant[] determinePropellants(Propellant... propellants) {
+		if (propellants.length > 0) {
+			return propellants;
+		} else {
+			return DEFAULT_PROPELLANTS;
+		}
+	}
+	
 	@Override
 	public final double getDryMass() {
 		return dryMass;
