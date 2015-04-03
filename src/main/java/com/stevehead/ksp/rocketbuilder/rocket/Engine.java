@@ -3,12 +3,7 @@ package com.stevehead.ksp.rocketbuilder.rocket;
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Tweakscalable;
 
-public class Engine extends Payload implements Thrustable {
-	/**
-	 * Default propellants when no propellants are given in constructor.
-	 */
-	private static final Propellant[] DEFAULT_PROPELLANTS = {Propellant.LIQUID_FUEL, Propellant.OXIDIZER};
-	
+public class Engine extends BaseThruster {
 	/**
 	 * The scalar that is used to scale ISP. If the mod Kerbal Isp Difficulty
 	 * Scaler (KIDS) is used in game, need to set this value to that.
@@ -24,41 +19,10 @@ public class Engine extends Payload implements Thrustable {
 	 * The game mod the engine is found in.
 	 */
 	protected final Mod mod;
-	
-	/**
-	 * The mass after all propellant is used.
-	 */
-	protected final double dryMass;
-	
-	/**
-	 * The thrust in Newtons.
-	 */
-	protected final double thrust;
-	
-	/**
-	 * The specific impulse in seconds.
-	 */
-	protected final double isp;
-	
 	/**
 	 * The diameter of the engine in meters.
 	 */
 	protected final double size;
-	
-	/**
-	 * The minumum thrust-to-weight ratio.
-	 */
-	protected final double minTWR; 
-	
-	/**
-	 * The maximum thrust-to-weight ratio.
-	 */
-	protected final double maxTWR;
-	
-	/**
-	 * The propellants this engine uses.
-	 */
-	private final Propellant[] propellants;
 	
 	/**
 	 * @param name			the display name
@@ -71,10 +35,10 @@ public class Engine extends Payload implements Thrustable {
 	 * @param propellants	the propellants used
 	 */
 	public Engine(String name, Mod mod, double dryMass, double mass, double thrust, double isp, double size, Propellant... propellants) {
-		super(mass);
 		this.name = name;
 		this.mod = mod;
 		this.dryMass = dryMass;
+		this.mass = mass;
 		this.thrust = thrust;
 		this.isp = isp;
 		this.size = size;
@@ -130,17 +94,6 @@ public class Engine extends Payload implements Thrustable {
 	}
 	
 	/**
-	 * Calculates the thrust-to-weight ratio.
-	 * 
-	 * @param mass			the mass in kg
-	 * @param thrust		the thrust in N
-	 * @return				the thrust-to-weight ratio
-	 */
-	private static double calculateTWR(double mass, double thrust) {
-		return thrust / (KERBIN_GRAVITY * mass);
-	}
-	
-	/**
 	 * Gets the current ISP Scaler.
 	 * 
 	 * @return		the ISP scaler
@@ -156,41 +109,6 @@ public class Engine extends Payload implements Thrustable {
 	 */
 	public final static void setIspScaler(double ispScaler) {
 		Engine.ispScaler = ispScaler;
-	}
-	
-	@Override
-	public final double getDryMass() {
-		return dryMass;
-	}
-	
-	@Override
-	public final Propellant[] getPropellants() {
-		return propellants;
-	}
-	
-	@Override
-	public final double getDeltaV() {
-		return getIsp() * Math.log(getMass() / getDryMass()) * KERBIN_GRAVITY;
-	}
-	
-	@Override
-	public final double getIsp() {
-		return getIspScaler() * isp;
-	}
-	
-	@Override
-	public final double getMinTWR() {
-		return minTWR;
-	}
-	
-	@Override
-	public final double getMaxTWR() {
-		return maxTWR;
-	}
-	
-	@Override
-	public final double getThrust() {
-		return thrust;
 	}
 	
 	/**
