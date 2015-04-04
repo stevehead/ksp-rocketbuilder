@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class BaseComponentTest {
 	
-	protected static BaseComponent testComponent;
+	private static BaseComponent testComponent;
 	private static final double mass = 100;
 	
 	@BeforeClass

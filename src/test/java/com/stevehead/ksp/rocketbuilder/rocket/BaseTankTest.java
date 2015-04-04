@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class BaseTankTest {
 	
-	protected static BaseTank testTank;
+	private static BaseTank testTank;
 	private static final double dryMass = 10000;
 	private static final double mass = 40000;
 
