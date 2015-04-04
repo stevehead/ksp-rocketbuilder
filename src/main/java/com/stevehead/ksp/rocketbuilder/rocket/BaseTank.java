@@ -50,7 +50,7 @@ public abstract class BaseTank extends BaseComponent implements Expendable, Prop
 	 * @param propellants	input propellants
 	 * @return				the determined propellants
 	 */
-	protected Propellant[] determinePropellants(Propellant... propellants) {
+	protected static Propellant[] determinePropellants(Propellant... propellants) {
 		if (propellants.length > 0) {
 			return propellants;
 		} else {
