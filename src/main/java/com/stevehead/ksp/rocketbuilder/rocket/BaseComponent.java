@@ -11,8 +11,15 @@ public abstract class BaseComponent implements Massive {
 	/**
 	 * The mass in kg.
 	 */
-	protected double mass;
-
+	protected final double mass;
+	
+	/**
+	 * @param mass		the mass in kg
+	 */
+	protected BaseComponent(double mass) {
+		this.mass = mass;
+	}
+	
 	@Override
 	public final double getMass() {
 		return mass;

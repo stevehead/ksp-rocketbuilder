@@ -8,41 +8,51 @@ import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
  * @author Steve Johnson
  *
  */
-public abstract class BaseThruster extends BaseComponent implements Thrustable {
-	/**
-	 * Default propellants when no propellants are given in constructor.
-	 */
-	protected static final Propellant[] DEFAULT_PROPELLANTS = {Propellant.LIQUID_FUEL, Propellant.OXIDIZER};
-	
-	/**
-	 * The mass after all propellant is used.
-	 */
-	protected double dryMass;
-	
+public abstract class BaseThruster extends BaseTank implements Thrustable {
 	/**
 	 * The thrust in Newtons.
 	 */
-	protected double thrust;
+	protected final double thrust;
 	
 	/**
 	 * The specific impulse in seconds.
 	 */
-	protected double isp;
+	protected final double isp;
 	
 	/**
 	 * The minumum thrust-to-weight ratio.
 	 */
-	protected double minTWR; 
+	protected final double minTWR; 
 	
 	/**
 	 * The maximum thrust-to-weight ratio.
 	 */
-	protected double maxTWR;
+	protected final double maxTWR;
 	
 	/**
-	 * The propellants this engine uses.
+	 * @param dryMass		the dry mass in kg
+	 * @param mass			the total mass in kg
+	 * @param thrust		the thrust in N
+	 * @param isp			the specific impulse in seconds
+	 * @param propellants	the propellants used
 	 */
-	protected Propellant[] propellants;
+	protected BaseThruster(double dryMass, double mass, double thrust, double isp, Propellant... propellants) {
+		super(dryMass, mass, propellants);
+		this.thrust = thrust;
+		this.isp = isp;
+		this.minTWR = calculateTWR(getDryMass(), getThrust());
+		this.maxTWR = calculateTWR(getMass(), getThrust());
+	}
+	
+	/**
+	 * @param mass			the mass in kg
+	 * @param thrust		the thrust in N
+	 * @param isp			the specific impulse in seconds
+	 * @param propellants	the propellants used
+	 */
+	protected BaseThruster(double mass, double thrust, double isp, Propellant... propellants) {
+		this(mass, mass, thrust, isp , propellants);
+	}
 	
 	/**
 	 * Calculates the thrust-to-weight ratio.
@@ -53,30 +63,6 @@ public abstract class BaseThruster extends BaseComponent implements Thrustable {
 	 */
 	protected static double calculateTWR(double mass, double thrust) {
 		return thrust / (KERBIN_GRAVITY * mass);
-	}
-	
-	/**
-	 * Returns default propellents if no propellants are provided.
-	 * 
-	 * @param propellants	input propellants
-	 * @return				the determined propellants
-	 */
-	protected Propellant[] determinePropellants(Propellant... propellants) {
-		if (propellants.length > 0) {
-			return propellants;
-		} else {
-			return DEFAULT_PROPELLANTS;
-		}
-	}
-	
-	@Override
-	public final double getDryMass() {
-		return dryMass;
-	}
-	
-	@Override
-	public final Propellant[] getPropellants() {
-		return propellants;
 	}
 	
 	@Override
