@@ -35,16 +35,10 @@ public class Engine extends BaseThruster {
 	 * @param propellants	the propellants used
 	 */
 	public Engine(String name, Mod mod, double dryMass, double mass, double thrust, double isp, double size, Propellant... propellants) {
+		super(dryMass, mass, thrust, isp, propellants);
 		this.name = name;
 		this.mod = mod;
-		this.dryMass = dryMass;
-		this.mass = mass;
-		this.thrust = thrust;
-		this.isp = isp;
 		this.size = size;
-		this.propellants = determinePropellants(propellants);
-		this.minTWR = calculateTWR(getDryMass(), getThrust());
-		this.maxTWR = calculateTWR(getMass(), getThrust());
 	}
 	
 	/**

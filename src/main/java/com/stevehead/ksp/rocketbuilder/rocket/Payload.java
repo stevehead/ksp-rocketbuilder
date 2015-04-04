@@ -10,6 +10,6 @@ public class Payload extends BaseComponent {
 	 * @param mass		the mass in kg
 	 */
 	public Payload(double mass) {
-		this.mass = mass;
+		super(mass);
 	}
 }
