@@ -34,6 +34,16 @@ public class EngineTest {
 	}
 	
 	@Test
+	public void testGetName() {
+		assertEquals("Engine name should be " + name, name, testEngine.getName());
+	}
+	
+	@Test
+	public void testMod() {
+		assertEquals("Engine mod should be " + mod, mod, testEngine.getMod());
+	}
+	
+	@Test
 	public void testGetIspScaler() {
 		assertEquals("Initial ISP Scaler should be 1", 1, Engine.getIspScaler(), 1e-7);
 	}

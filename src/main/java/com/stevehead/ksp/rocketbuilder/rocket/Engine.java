@@ -81,6 +81,11 @@ public class Engine extends BaseThruster {
 		return size;
 	}
 	
+	@Override
+	public String toString() {
+		return "Engine: " + name;
+	}
+	
 	/**
 	 * Gets the current ISP Scaler.
 	 * 
