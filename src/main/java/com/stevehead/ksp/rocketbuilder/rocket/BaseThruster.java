@@ -40,8 +40,8 @@ public abstract class BaseThruster extends BaseTank implements Thrustable {
 		super(dryMass, mass, propellants);
 		this.thrust = thrust;
 		this.isp = isp;
-		this.minTWR = calculateTWR(getDryMass(), getThrust());
-		this.maxTWR = calculateTWR(getMass(), getThrust());
+		this.minTWR = calculateTWR(getMass(), getThrust());
+		this.maxTWR = calculateTWR(getDryMass(), getThrust());
 	}
 	
 	/**
