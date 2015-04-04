@@ -22,7 +22,7 @@ public class BaseComponentTest {
 	
 	private static class TestComponent extends BaseComponent {
 		public TestComponent(double mass) {
-			this.mass = mass;
+			super(mass);
 		}
 	}
 }
