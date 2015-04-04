@@ -22,26 +22,27 @@ public class BaseTankTest {
 	}
 	
 	@Test
-	public void testGetPropellants() {
-		// Main test
+	public void testGetPropellantsWithEmpty() {
 		assertArrayEquals("Tank should have default propellants", TestTank.DEFAULT_PROPELLANTS, testTank.getPropellants());
-		
-		// New Test
+	}
+	
+	@Test
+	public void testGetPropellantsWithoutEmpty() {
 		Propellant[] newTankPropellants = new Propellant[]{Propellant.MONOPROPELLANT};
 		BaseTank newTestTank = new TestTank(dryMass, mass, newTankPropellants);
 		assertArrayEquals("Tank should have monopropellant", newTankPropellants, newTestTank.getPropellants());
 	}
 
 	@Test
-	public void testDeterminePropellants() {
+	public void testDeterminePropellantsWithEmpty() {
 		Propellant[] blankPropellants = new Propellant[0];
-		Propellant[] nonBlankPropellants = new Propellant[]{Propellant.MONOPROPELLANT};
-		
-		// Test empty array.
 		assertArrayEquals("No propellants should be converted to the default propellants.",
 				TestTank.DEFAULT_PROPELLANTS, TestTank.determinePropellants(blankPropellants));
-		
-		// Test non-empty array.
+	}
+	
+	@Test
+	public void testDeterminePropellantsWithoutEmpty() {
+		Propellant[] nonBlankPropellants = new Propellant[]{Propellant.MONOPROPELLANT};
 		assertArrayEquals("Default propellants should not be given if array is not empty.",
 				nonBlankPropellants, TestTank.determinePropellants(nonBlankPropellants));
 	}
