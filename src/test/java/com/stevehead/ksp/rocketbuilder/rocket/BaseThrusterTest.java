@@ -22,7 +22,7 @@ public class BaseThrusterTest {
 	@Test
 	public void testGetDeltaV() {
 		double actualDeltaV = TestThruster.KERBIN_GRAVITY * isp * Math.log(mass / dryMass);
-		assertEquals("Delta-V should be ~" + Math.round(actualDeltaV), actualDeltaV, testThruster.getDeltaV(), 1e-15);
+		assertEquals("Delta-V should be ~" + Math.round(actualDeltaV), actualDeltaV, testThruster.getDeltaV(), 1e-7);
 	}
 	
 	@Test
@@ -38,13 +38,13 @@ public class BaseThrusterTest {
 	@Test
 	public void testGetMinTWR() {
 		double actualMinTWR = thrust / (mass * TestThruster.KERBIN_GRAVITY);
-		assertEquals("Min TWR should be " + actualMinTWR, actualMinTWR, testThruster.getMinTWR(), 1e-15);
+		assertEquals("Min TWR should be " + actualMinTWR, actualMinTWR, testThruster.getMinTWR(), 1e-7);
 	}
 	
 	@Test
 	public void testGetMaxTWR() {
 		double actualMinTWR = thrust / (dryMass * TestThruster.KERBIN_GRAVITY);
-		assertEquals("Max TWR should be " + actualMinTWR, actualMinTWR, testThruster.getMaxTWR(), 1e-15);
+		assertEquals("Max TWR should be " + actualMinTWR, actualMinTWR, testThruster.getMaxTWR(), 1e-7);
 	}
 	
 	private static class TestThruster extends BaseThruster {

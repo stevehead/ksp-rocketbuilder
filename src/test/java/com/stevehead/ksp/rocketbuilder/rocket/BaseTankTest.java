@@ -18,7 +18,7 @@ public class BaseTankTest {
 	
 	@Test
 	public void testGetDryMass() {
-		assertEquals("Dry mass should be " + dryMass, dryMass, testTank.getDryMass(), 1e-15);
+		assertEquals("Dry mass should be " + dryMass, dryMass, testTank.getDryMass(), 1e-7);
 	}
 	
 	@Test

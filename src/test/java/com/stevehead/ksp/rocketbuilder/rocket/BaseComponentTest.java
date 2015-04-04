@@ -17,7 +17,7 @@ public class BaseComponentTest {
 	
 	@Test
 	public void testGetMass() {
-		assertEquals("Mass should be " + mass, mass, testComponent.getMass(), 1e-15);
+		assertEquals("Mass should be " + mass, mass, testComponent.getMass(), 1e-7);
 	}
 	
 	private static class TestComponent extends BaseComponent {
