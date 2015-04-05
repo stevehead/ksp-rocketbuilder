@@ -3,7 +3,6 @@ package com.stevehead.ksp.rocketbuilder.rocket;
 import com.stevehead.ksp.rocketbuilder.game.Mod;
 import com.stevehead.ksp.rocketbuilder.interfaces.Moddable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Nameable;
-import com.stevehead.ksp.rocketbuilder.interfaces.Sizeable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Tweakscalable;
 
