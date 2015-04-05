@@ -40,30 +40,30 @@ public class EngineTest {
 	
 	@Test
 	public void testGetName() {
-		assertEquals("Engine name should be " + name, name, testEngine.getName());
+		assertEquals(name, testEngine.getName());
 	}
 	
 	@Test
 	public void testGetMod() {
-		assertEquals("Engine mod should be " + mod, mod, testEngine.getMod());
+		assertEquals(mod, testEngine.getMod());
 	}
 	
 	@Test
 	public void testGetIspScaler() {
-		assertEquals("Initial ISP Scaler should be 1", 1, Engine.getIspScaler(), 1e-7);
+		assertEquals(1, Engine.getIspScaler(), 1e-7);
 	}
 
 	@Test
 	public void testSetIspScaler() {
 		double newIspScaler = 0.81;
 		Engine.setIspScaler(newIspScaler);
-		assertEquals("New ISP Scaler should be " + newIspScaler, newIspScaler, Engine.getIspScaler(), 1e-7);
+		assertEquals(newIspScaler, Engine.getIspScaler(), 1e-7);
 	}
 
 	@Test
 	public void testGetDeltaV() {
 		double expectedDeltaV = Engine.KERBIN_GRAVITY * isp * Math.log(mass / dryMass);
-		assertEquals("Test engine dV should be " + expectedDeltaV, expectedDeltaV, testEngine.getDeltaV(), 1e-7);
+		assertEquals(expectedDeltaV, testEngine.getDeltaV(), 1e-7);
 	}
 	
 	@Test
@@ -71,20 +71,20 @@ public class EngineTest {
 		double newIspScaler = 0.81;
 		Engine.setIspScaler(newIspScaler);
 		double expectedDeltaV = Engine.KERBIN_GRAVITY * isp * newIspScaler * Math.log(mass / dryMass);
-		assertEquals("Test engine dV should be " + expectedDeltaV, expectedDeltaV, testEngine.getDeltaV(), 1e-7);
+		assertEquals(expectedDeltaV, testEngine.getDeltaV(), 1e-7);
 	}
 	
 	@Test
 	public void testTweakScaleDifferentScale() {
-		assertNotSame("Engine objects should be different", testEngine, testTweakScaleEngine);
-		assertNotEquals("Engine sizes should be different", testEngine.getSize(), testTweakScaleEngine.getSize(), 1e-7);
+		assertNotSame(testEngine, testTweakScaleEngine);
+		assertNotEquals(testEngine.getSize(), testTweakScaleEngine.getSize(), 1e-7);
 	}
 	
 	@Test
 	public void testTweakScaleSameScale() {
 		Engine testSameScale = testEngine.tweakScale(size);
-		assertSame("Engine objects should be same", testEngine, testSameScale);
-		assertEquals("Engine sizes should be same", testEngine.getSize(), testSameScale.getSize(), 1e-7);
+		assertSame(testEngine, testSameScale);
+		assertEquals(testEngine.getSize(), testSameScale.getSize(), 1e-7);
 	}
 	
 	@Test
@@ -92,8 +92,7 @@ public class EngineTest {
 		double ratio = tweakScaleSize / size;
 		double massScale = Math.pow(ratio, Engine.TWEAKSCALE_MASS_EXPONENT);
 		
-		assertEquals("Dry mass should be scaled by " + massScale, dryMass * massScale,
-				testTweakScaleEngine.getDryMass(), 1e-7);
+		assertEquals(dryMass * massScale, testTweakScaleEngine.getDryMass(), 1e-7);
 	}
 	
 	@Test
@@ -101,8 +100,7 @@ public class EngineTest {
 		double ratio = tweakScaleSize / size;
 		double massScale = Math.pow(ratio, Engine.TWEAKSCALE_MASS_EXPONENT);
 		
-		assertEquals("Mass should be scaled by " + massScale, mass * massScale,
-				testTweakScaleEngine.getMass(), 1e-7);
+		assertEquals(mass * massScale, testTweakScaleEngine.getMass(), 1e-7);
 	}
 	
 	@Test
@@ -110,14 +108,12 @@ public class EngineTest {
 		double ratio = tweakScaleSize / size;
 		double thrustScale = Math.pow(ratio, Engine.TWEAKSCALE_THRUST_EXPONENT);
 		
-		assertEquals("Thrust should be scaled by " + thrustScale, thrust * thrustScale,
-				testTweakScaleEngine.getThrust(), 1e-7);
+		assertEquals(thrust * thrustScale, testTweakScaleEngine.getThrust(), 1e-7);
 	}
 	
 	@Test
 	public void testTweakScaleDeltaV() {
-		assertEquals("Delta-V should be the same", testEngine.getDeltaV(),
-				testTweakScaleEngine.getDeltaV(), 1e-7);
+		assertEquals(testEngine.getDeltaV(), testTweakScaleEngine.getDeltaV(), 1e-7);
 	}
 	
 	@Test
@@ -127,9 +123,7 @@ public class EngineTest {
 		double thrustScale = Math.pow(ratio, Engine.TWEAKSCALE_THRUST_EXPONENT);
 		double twrScale = thrustScale / massScale;
 		
-		assertEquals("Min TWR should be scaled by " + twrScale, testEngine.getMinTWR() * twrScale,
-				testTweakScaleEngine.getMinTWR(), 1e-7);
-		assertEquals("Max TWR should be scaled by " + twrScale, testEngine.getMaxTWR() * twrScale,
-				testTweakScaleEngine.getMaxTWR(), 1e-7);
+		assertEquals(testEngine.getMinTWR() * twrScale, testTweakScaleEngine.getMinTWR(), 1e-7);
+		assertEquals(testEngine.getMaxTWR() * twrScale, testTweakScaleEngine.getMaxTWR(), 1e-7);
 	}
 }

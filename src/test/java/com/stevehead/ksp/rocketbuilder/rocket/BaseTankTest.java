@@ -18,53 +18,49 @@ public class BaseTankTest {
 	
 	@Test
 	public void testGetDryMass() {
-		assertEquals("Dry mass should be " + dryMass, dryMass, testTank.getDryMass(), 1e-7);
+		assertEquals(dryMass, testTank.getDryMass(), 1e-7);
 	}
 	
 	@Test
 	public void testGetPropellantsWithEmpty() {
-		assertArrayEquals("Tank should have default propellants", TestTank.DEFAULT_PROPELLANTS, testTank.getPropellants());
+		assertArrayEquals(TestTank.DEFAULT_PROPELLANTS, testTank.getPropellants());
 	}
 	
 	@Test
 	public void testGetPropellantsWithoutEmpty() {
 		Propellant[] newTankPropellants = new Propellant[]{Propellant.MONOPROPELLANT};
 		BaseTank newTestTank = new TestTank(dryMass, mass, newTankPropellants);
-		assertArrayEquals("Tank should have monopropellant", newTankPropellants, newTestTank.getPropellants());
+		assertArrayEquals(newTankPropellants, newTestTank.getPropellants());
 	}
 
 	@Test
 	public void testDeterminePropellantsWithEmpty() {
 		Propellant[] blankPropellants = new Propellant[0];
-		assertArrayEquals("No propellants should be converted to the default propellants.",
-				TestTank.DEFAULT_PROPELLANTS, TestTank.determinePropellants(blankPropellants));
+		assertArrayEquals(TestTank.DEFAULT_PROPELLANTS, TestTank.determinePropellants(blankPropellants));
 	}
 	
 	@Test
 	public void testDeterminePropellantsWithoutEmpty() {
 		Propellant[] nonBlankPropellants = new Propellant[]{Propellant.MONOPROPELLANT};
-		assertArrayEquals("Default propellants should not be given if array is not empty.",
-				nonBlankPropellants, TestTank.determinePropellants(nonBlankPropellants));
+		assertArrayEquals(nonBlankPropellants, TestTank.determinePropellants(nonBlankPropellants));
 	}
 	
 	@Test
 	public void testCalculateDryMass() {
 		double testDryMass = 5000;
-		double expectedValue = dryMass + testDryMass;
+		double expectedDryMass = dryMass + testDryMass;
 		BaseTank testTank2 = new TestTank(testDryMass, mass);
 		
-		assertEquals("Combined dry mass should be " + expectedValue, expectedValue,
-				TestTank.calculateDryMass(testTank, testTank2), 1e-7);
+		assertEquals(expectedDryMass, TestTank.calculateDryMass(testTank, testTank2), 1e-7);
 	}
 	
 	@Test
 	public void testCombinePropellants() {
 		Propellant[] testPropellants = new Propellant[]{Propellant.XENON_GAS, Propellant.OXIDIZER};
-		int expectedValue = 3;
+		int expectedArrayLength = 3;
 		BaseTank testTank2 = new TestTank(100, 200, testPropellants);
 		
-		assertEquals("The combined propellants should have " + expectedValue,
-				expectedValue, TestTank.combinePropellants(testTank, testTank2).length);
+		assertEquals(expectedArrayLength, TestTank.combinePropellants(testTank, testTank2).length);
 	}
 	
 	private static class TestTank extends BaseTank {
