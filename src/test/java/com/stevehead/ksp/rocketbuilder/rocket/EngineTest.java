@@ -7,11 +7,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.stevehead.ksp.rocketbuilder.game.Mod;
+import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
+
 public class EngineTest {
 	
 	private static Engine testEngine;
 	private static final String name = "Test Engine";
-	private static final Engine.Mod mod = Engine.Mod.CUSTOM;
+	private static final Mod mod = Mod.CUSTOM;
 	private static final double dryMass = 10000;
 	private static final double mass = 40000;
 	private static final double thrust = 2000000;
@@ -39,7 +42,7 @@ public class EngineTest {
 	}
 	
 	@Test
-	public void testMod() {
+	public void testGetMod() {
 		assertEquals("Engine mod should be " + mod, mod, testEngine.getMod());
 	}
 	
