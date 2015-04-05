@@ -47,6 +47,26 @@ public class BaseTankTest {
 				nonBlankPropellants, TestTank.determinePropellants(nonBlankPropellants));
 	}
 	
+	@Test
+	public void testCalculateDryMass() {
+		double testDryMass = 5000;
+		double expectedValue = dryMass + testDryMass;
+		BaseTank testTank2 = new TestTank(testDryMass, mass);
+		
+		assertEquals("Combined dry mass should be " + expectedValue, expectedValue,
+				TestTank.calculateDryMass(testTank, testTank2), 1e-7);
+	}
+	
+	@Test
+	public void testCombinePropellants() {
+		Propellant[] testPropellants = new Propellant[]{Propellant.XENON_GAS, Propellant.OXIDIZER};
+		int expectedValue = 3;
+		BaseTank testTank2 = new TestTank(100, 200, testPropellants);
+		
+		assertEquals("The combined propellants should have " + expectedValue,
+				expectedValue, TestTank.combinePropellants(testTank, testTank2).length);
+	}
+	
 	private static class TestTank extends BaseTank {
 		public TestTank(double dryMass, double mass, Propellant... propellants) {
 			super(dryMass, mass, propellants);
