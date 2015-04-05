@@ -74,7 +74,7 @@ public abstract class BaseThruster extends BaseTank implements Thrustable {
 	 * @param engines		engines to be combined
 	 * @return				the combined Isp of the engines
 	 */
-	protected static double calculateIsp(Thrustable[] engines) {
+	protected static double calculateIsp(Thrustable... engines) {
 		double numerator = 0;
 		double denominator = 0;
 		for (Thrustable engine : engines) {
