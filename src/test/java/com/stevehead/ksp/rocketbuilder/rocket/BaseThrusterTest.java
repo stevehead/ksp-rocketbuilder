@@ -21,8 +21,8 @@ public class BaseThrusterTest {
 	
 	@Test
 	public void testGetDeltaV() {
-		double actualDeltaV = TestThruster.KERBIN_GRAVITY * isp * Math.log(mass / dryMass);
-		assertEquals("Delta-V should be ~" + Math.round(actualDeltaV), actualDeltaV, testThruster.getDeltaV(), 1e-7);
+		double expectedDeltaV = TestThruster.KERBIN_GRAVITY * isp * Math.log(mass / dryMass);
+		assertEquals("Delta-V should be ~" + Math.round(expectedDeltaV), expectedDeltaV, testThruster.getDeltaV(), 1e-7);
 	}
 	
 	@Test
@@ -37,14 +37,43 @@ public class BaseThrusterTest {
 	
 	@Test
 	public void testGetMinTWR() {
-		double actualMinTWR = thrust / (mass * TestThruster.KERBIN_GRAVITY);
-		assertEquals("Min TWR should be " + actualMinTWR, actualMinTWR, testThruster.getMinTWR(), 1e-7);
+		double expectedMinTWR = thrust / (mass * TestThruster.KERBIN_GRAVITY);
+		assertEquals("Min TWR should be " + expectedMinTWR, expectedMinTWR, testThruster.getMinTWR(), 1e-7);
 	}
 	
 	@Test
 	public void testGetMaxTWR() {
-		double actualMinTWR = thrust / (dryMass * TestThruster.KERBIN_GRAVITY);
-		assertEquals("Max TWR should be " + actualMinTWR, actualMinTWR, testThruster.getMaxTWR(), 1e-7);
+		double expectedMinTWR = thrust / (dryMass * TestThruster.KERBIN_GRAVITY);
+		assertEquals("Max TWR should be " + expectedMinTWR, expectedMinTWR, testThruster.getMaxTWR(), 1e-7);
+	}
+	
+	@Test
+	public void testCalculateThrust() {
+		double testThrust = 500000;
+		double expectedThrust = thrust + testThrust;
+		BaseThruster testThruster2 = new TestThruster(300, 600, testThrust, 260);
+		
+		assertEquals("Combined thrust should be " + expectedThrust, expectedThrust,
+				TestThruster.calculateThrust(testThruster, testThruster2), 1e-7);
+	}
+	
+	@Test
+	public void testCalculateIspSame() {
+		BaseThruster testThruster2 = new TestThruster(300, 600, 500000, isp);
+		
+		assertEquals("Combined Isp should be " + isp, isp,
+				TestThruster.calculateIsp(testThruster, testThruster2), 1e-7);
+	}
+	
+	@Test
+	public void testCalculateIspDifferent() {
+		double testThrust = 500000;
+		double testIsp = isp - 20.5;
+		double expectedIsp = (thrust + testThrust) / (thrust / isp + testThrust / testIsp);
+		BaseThruster testThruster2 = new TestThruster(300, 600, testThrust, testIsp);
+		
+		assertEquals("Combined Isp should be " + expectedIsp, expectedIsp,
+				TestThruster.calculateIsp(testThruster, testThruster2), 1e-7);
 	}
 	
 	private static class TestThruster extends BaseThruster {
