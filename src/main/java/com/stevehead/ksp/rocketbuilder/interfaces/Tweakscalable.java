@@ -6,7 +6,7 @@ package com.stevehead.ksp.rocketbuilder.interfaces;
  * 
  * @author Steve Johnson
  */
-public interface Tweakscalable {
+public interface Tweakscalable extends Sizeable {
 	/**
 	 * Exponents used by Tweakscale.
 	 */
