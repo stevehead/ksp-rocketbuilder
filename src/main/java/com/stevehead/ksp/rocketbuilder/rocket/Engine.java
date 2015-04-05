@@ -1,15 +1,23 @@
 package com.stevehead.ksp.rocketbuilder.rocket;
 
 import com.stevehead.ksp.rocketbuilder.game.Mod;
+import com.stevehead.ksp.rocketbuilder.interfaces.Moddable;
+import com.stevehead.ksp.rocketbuilder.interfaces.Nameable;
+import com.stevehead.ksp.rocketbuilder.interfaces.Sizeable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Tweakscalable;
 
-public class Engine extends BaseThruster {
+public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable {
 	/**
 	 * The scalar that is used to scale ISP. If the mod Kerbal Isp Difficulty
 	 * Scaler (KIDS) is used in game, need to set this value to that.
 	 */
 	private static double ispScaler = 1;
+	
+	/**
+	 * The string format used for its toString method. 
+	 */
+	private static final String TO_STRING_FORMAT = "Engine: %s";
 	
 	/**
 	 * The proper display name of the engine.
@@ -56,36 +64,24 @@ public class Engine extends BaseThruster {
 		this(name, mod, mass, mass, thrust, isp, size, propellants);
 	}
 	
-	/**
-	 * The name.
-	 * 
-	 * @return		name
-	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * The KSP mod.
-	 * 
-	 * @return		mod
-	 */
+	@Override
 	public Mod getMod() {
 		return mod;
 	}
 	
-	/**
-	 * The diameter in meters.
-	 * 
-	 * @return		diameter in meters
-	 */
+	@Override
 	public double getSize() {
 		return size;
 	}
 	
 	@Override
 	public String toString() {
-		return "Engine: " + name;
+		return String.format(TO_STRING_FORMAT, name);
 	}
 	
 	/**
@@ -111,7 +107,7 @@ public class Engine extends BaseThruster {
 	 * 
 	 * @author Steve Johnson
 	 */
-	public enum PreDefined implements Thrustable, Tweakscalable {
+	public enum PreDefined implements Moddable, Nameable, Thrustable, Tweakscalable {
 		// Stock Engines
 		ROCKOMAX_48_7S								("Rockomax 48-7S", Mod.STOCK, 100, 30000, 350, 0.625),
 		LV_909_LIQUID_FUEL_ENGINE					("LV-909 Liquid Fuel Engine", Mod.STOCK, 500, 50000, 390, 1.25),
@@ -185,7 +181,7 @@ public class Engine extends BaseThruster {
 				double dryMass = engine.getDryMass() * Math.pow(ratio, MASS_EXPONENT);
 				double mass = engine.getMass() * Math.pow(ratio, MASS_EXPONENT);
 				double thrust = engine.getThrust() * Math.pow(ratio, THRUST_EXPONENT);
-				return new Engine(engine.getName(), engine.getMod(), dryMass, mass, thrust, engine.getIsp(), scale, engine.getPropellants());
+				return new Engine(engine.getName() + " (TweakScale " + scale + "m)", engine.getMod(), dryMass, mass, thrust, engine.getIsp(), scale, engine.getPropellants());
 			}
 			return this;
 		}
@@ -228,6 +224,26 @@ public class Engine extends BaseThruster {
 		@Override
 		public double getThrust() {
 			return engine.getThrust();
+		}
+		
+		@Override
+		public String toString() {
+			return engine.toString();
+		}
+
+		@Override
+		public double getSize() {
+			return engine.getSize();
+		}
+
+		@Override
+		public String getName() {
+			return engine.getName();
+		}
+
+		@Override
+		public Mod getMod() {
+			return engine.getMod();
 		}
 	}
 }
