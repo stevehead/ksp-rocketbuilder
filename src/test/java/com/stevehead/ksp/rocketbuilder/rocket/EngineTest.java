@@ -62,16 +62,16 @@ public class EngineTest {
 
 	@Test
 	public void testGetDeltaV() {
-		double actualDeltaV = Engine.KERBIN_GRAVITY * isp * Math.log(mass / dryMass);
-		assertEquals("Test engine dV should be " + actualDeltaV, actualDeltaV, testEngine.getDeltaV(), 1e-7);
+		double expectedDeltaV = Engine.KERBIN_GRAVITY * isp * Math.log(mass / dryMass);
+		assertEquals("Test engine dV should be " + expectedDeltaV, expectedDeltaV, testEngine.getDeltaV(), 1e-7);
 	}
 	
 	@Test
 	public void testGetDeltaVAfterScale() {
 		double newIspScaler = 0.81;
 		Engine.setIspScaler(newIspScaler);
-		double actualDeltaV = Engine.KERBIN_GRAVITY * isp * newIspScaler * Math.log(mass / dryMass);
-		assertEquals("Test engine dV should be " + actualDeltaV, actualDeltaV, testEngine.getDeltaV(), 1e-7);
+		double expectedDeltaV = Engine.KERBIN_GRAVITY * isp * newIspScaler * Math.log(mass / dryMass);
+		assertEquals("Test engine dV should be " + expectedDeltaV, expectedDeltaV, testEngine.getDeltaV(), 1e-7);
 	}
 	
 	@Test

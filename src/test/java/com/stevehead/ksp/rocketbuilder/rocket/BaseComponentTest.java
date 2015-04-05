@@ -23,10 +23,10 @@ public class BaseComponentTest {
 	@Test
 	public void testCalculateMass() {
 		double testMass = 200;
-		double actualValue = mass + testMass;
+		double expectedValue = mass + testMass;
 		BaseComponent testComponent2 = new TestComponent(testMass);
 		
-		assertEquals("Combined mass should be " + actualValue, actualValue,
+		assertEquals("Combined mass should be " + expectedValue, expectedValue,
 				TestComponent.calculateMass(testComponent, testComponent2), 1e-7);
 	}
 	
