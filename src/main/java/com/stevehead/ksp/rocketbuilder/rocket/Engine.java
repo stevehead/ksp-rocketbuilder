@@ -1,5 +1,6 @@
 package com.stevehead.ksp.rocketbuilder.rocket;
 
+import com.stevehead.ksp.rocketbuilder.game.Mod;
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Tweakscalable;
 
@@ -19,6 +20,7 @@ public class Engine extends BaseThruster {
 	 * The game mod the engine is found in.
 	 */
 	protected final Mod mod;
+	
 	/**
 	 * The diameter of the engine in meters.
 	 */
@@ -102,15 +104,6 @@ public class Engine extends BaseThruster {
 	 */
 	public final static void setIspScaler(double ispScaler) {
 		Engine.ispScaler = ispScaler;
-	}
-	
-	/**
-	 * Mod describes the set of engines from a game mod.
-	 * 
-	 * @author Steve Johnson
-	 */
-	public enum Mod {
-		STOCK, KW_ROCKETRY, AIES, NOVAPUNCH, KSPX, CUSTOM
 	}
 	
 	/**
