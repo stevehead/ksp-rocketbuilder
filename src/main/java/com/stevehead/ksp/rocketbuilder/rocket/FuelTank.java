@@ -44,7 +44,7 @@ public class FuelTank extends BaseTank {
 	 * @param totalMass		total mass in kg
 	 */
 	public FuelTank(double dryMass, double totalMass) {
-		this(dryMass, totalMass, Type.LIQUID_FUEL_AND_OXIDIZER, Propellant.LIQUID_FUEL, Propellant.OXIDIZER);
+		this(dryMass, totalMass, Type.AUTO, DEFAULT_PROPELLANTS);
 	}
 	
 	/**
