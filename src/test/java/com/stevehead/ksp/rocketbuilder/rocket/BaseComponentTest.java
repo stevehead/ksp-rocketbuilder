@@ -20,6 +20,16 @@ public class BaseComponentTest {
 		assertEquals("Mass should be " + mass, mass, testComponent.getMass(), 1e-7);
 	}
 	
+	@Test
+	public void testCalculateMass() {
+		double testMass = 200;
+		double actualValue = mass + testMass;
+		BaseComponent testComponent2 = new TestComponent(testMass);
+		
+		assertEquals("Combined mass should be " + actualValue, actualValue,
+				TestComponent.calculateMass(testComponent, testComponent2), 1e-7);
+	}
+	
 	private static class TestComponent extends BaseComponent {
 		public TestComponent(double mass) {
 			super(mass);
