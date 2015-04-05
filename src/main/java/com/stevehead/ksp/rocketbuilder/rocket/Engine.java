@@ -7,7 +7,7 @@ import com.stevehead.ksp.rocketbuilder.interfaces.Sizeable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Thrustable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Tweakscalable;
 
-public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable {
+public class Engine extends BaseThruster implements Moddable, Nameable, Tweakscalable {
 	/**
 	 * The scalar that is used to scale ISP. If the mod Kerbal Isp Difficulty
 	 * Scaler (KIDS) is used in game, need to set this value to that.
@@ -82,6 +82,20 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable
 	@Override
 	public String toString() {
 		return String.format(TO_STRING_FORMAT, name);
+	}
+	
+	@Override
+	public Engine tweakScale(double scale) {
+		// If the scale is the same, then no point in re-creating the object.
+		if (scale != getSize())
+		{
+			double ratio = scale / getSize();
+			double dryMass = getDryMass() * Math.pow(ratio, MASS_EXPONENT);
+			double mass = getMass() * Math.pow(ratio, MASS_EXPONENT);
+			double thrust = getThrust() * Math.pow(ratio, THRUST_EXPONENT);
+			return new Engine(getName() + " (TweakScale " + scale + "m)", getMod(), dryMass, mass, thrust, getIsp(), scale, getPropellants());
+		}
+		return this;
 	}
 	
 	/**
@@ -173,7 +187,7 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable
 		}
 		
 		/**
-		 * Returns the engine object. Usefull when you need an explicit Engine
+		 * Returns the engine object. Useful when you need an explicit Engine
 		 * object.
 		 * 
 		 * @return		the engine object
@@ -184,16 +198,7 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable
 		
 		@Override
 		public Engine tweakScale(double scale) {
-			// If the scale is the same, then no point in re-creating the object.
-			if (scale != engine.getSize())
-			{
-				double ratio = scale / engine.getSize();
-				double dryMass = engine.getDryMass() * Math.pow(ratio, MASS_EXPONENT);
-				double mass = engine.getMass() * Math.pow(ratio, MASS_EXPONENT);
-				double thrust = engine.getThrust() * Math.pow(ratio, THRUST_EXPONENT);
-				return new Engine(engine.getName() + " (TweakScale " + scale + "m)", engine.getMod(), dryMass, mass, thrust, engine.getIsp(), scale, engine.getPropellants());
-			}
-			return toEngine();
+			return engine.tweakScale(scale);
 		}
 
 		@Override
