@@ -1,5 +1,7 @@
 package com.stevehead.ksp.rocketbuilder.interfaces;
 
+import com.stevehead.ksp.rocketbuilder.rocket.Propellant;
+
 /**
  * Expendable is a type of object that has mass, but can lose mass over time.
  * An example would be a fuel tank.
@@ -13,4 +15,11 @@ public interface Expendable extends Massive {
 	 * @return		the dry mass in kg
 	 */
 	double getDryMass();
+	
+	/**
+	 * The propellants required.
+	 * 
+	 * @return		propellants
+	 */
+	Propellant[] getPropellants();
 }
