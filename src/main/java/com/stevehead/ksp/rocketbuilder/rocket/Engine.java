@@ -172,8 +172,18 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable
 			this(name, mod, mass, mass, thrust, isp, size, propellants);
 		}
 		
+		/**
+		 * Returns the engine object. Usefull when you need an explicit Engine
+		 * object.
+		 * 
+		 * @return		the engine object
+		 */
+		public Engine toEngine() {
+			return engine;
+		}
+		
 		@Override
-		public Thrustable tweakScale(double scale) {
+		public Engine tweakScale(double scale) {
 			// If the scale is the same, then no point in re-creating the object.
 			if (scale != engine.getSize())
 			{
@@ -183,7 +193,7 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Sizeable
 				double thrust = engine.getThrust() * Math.pow(ratio, THRUST_EXPONENT);
 				return new Engine(engine.getName() + " (TweakScale " + scale + "m)", engine.getMod(), dryMass, mass, thrust, engine.getIsp(), scale, engine.getPropellants());
 			}
-			return this;
+			return toEngine();
 		}
 
 		@Override
