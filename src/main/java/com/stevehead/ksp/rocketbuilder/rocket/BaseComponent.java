@@ -20,6 +20,20 @@ public abstract class BaseComponent implements Massive {
 		this.mass = mass;
 	}
 	
+	/**
+	 * Returns the combined mass of the objects.
+	 * 
+	 * @param expendables		the objects to combine their mass
+	 * @return					the combined mass in kg
+	 */
+	protected static double calculateMass(Massive... massables) {
+		double mass = 0;
+		for (Massive massiveObject : massables) {
+			mass += massiveObject.getMass();
+		}
+		return mass;
+	}
+	
 	@Override
 	public final double getMass() {
 		return mass;
