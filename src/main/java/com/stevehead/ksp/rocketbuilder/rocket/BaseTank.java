@@ -86,8 +86,11 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	protected static Propellant[] combinePropellants(Expendable... expendables) {
 		List<Propellant> propellants = new ArrayList<Propellant>();
 		for (Expendable expendableObject : expendables) {
-			List<Propellant> thisPropellants = Arrays.asList(expendableObject.getPropellants());
-			propellants = ListUtils.union(propellants, thisPropellants);
+			for (Propellant propellant : expendableObject.getPropellants()) {
+				if (!propellants.contains(propellant)) {
+					propellants.add(propellant);
+				}
+			}
 		}
 		return propellants.toArray(new Propellant[propellants.size()]);
 	}
