@@ -90,7 +90,7 @@ public class EngineTest {
 	@Test
 	public void testTweakScaleDryMass() {
 		double ratio = tweakScaleSize / size;
-		double massScale = Math.pow(ratio, Engine.MASS_EXPONENT);
+		double massScale = Math.pow(ratio, Engine.TWEAKSCALE_MASS_EXPONENT);
 		
 		assertEquals("Dry mass should be scaled by " + massScale, dryMass * massScale,
 				testTweakScaleEngine.getDryMass(), 1e-7);
@@ -99,7 +99,7 @@ public class EngineTest {
 	@Test
 	public void testTweakScaleMass() {
 		double ratio = tweakScaleSize / size;
-		double massScale = Math.pow(ratio, Engine.MASS_EXPONENT);
+		double massScale = Math.pow(ratio, Engine.TWEAKSCALE_MASS_EXPONENT);
 		
 		assertEquals("Mass should be scaled by " + massScale, mass * massScale,
 				testTweakScaleEngine.getMass(), 1e-7);
@@ -108,7 +108,7 @@ public class EngineTest {
 	@Test
 	public void testTweakScaleThrust() {
 		double ratio = tweakScaleSize / size;
-		double thrustScale = Math.pow(ratio, Engine.THRUST_EXPONENT);
+		double thrustScale = Math.pow(ratio, Engine.TWEAKSCALE_THRUST_EXPONENT);
 		
 		assertEquals("Thrust should be scaled by " + thrustScale, thrust * thrustScale,
 				testTweakScaleEngine.getThrust(), 1e-7);
@@ -123,8 +123,8 @@ public class EngineTest {
 	@Test
 	public void testTweakScaleTWR() {
 		double ratio = tweakScaleSize / size;
-		double massScale = Math.pow(ratio, Engine.MASS_EXPONENT);
-		double thrustScale = Math.pow(ratio, Engine.THRUST_EXPONENT);
+		double massScale = Math.pow(ratio, Engine.TWEAKSCALE_MASS_EXPONENT);
+		double thrustScale = Math.pow(ratio, Engine.TWEAKSCALE_THRUST_EXPONENT);
 		double twrScale = thrustScale / massScale;
 		
 		assertEquals("Min TWR should be scaled by " + twrScale, testEngine.getMinTWR() * twrScale,

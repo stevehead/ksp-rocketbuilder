@@ -89,9 +89,9 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Tweaksca
 		if (scale != getSize())
 		{
 			double ratio = scale / getSize();
-			double dryMass = getDryMass() * Math.pow(ratio, MASS_EXPONENT);
-			double mass = getMass() * Math.pow(ratio, MASS_EXPONENT);
-			double thrust = getThrust() * Math.pow(ratio, THRUST_EXPONENT);
+			double dryMass = getDryMass() * Math.pow(ratio, TWEAKSCALE_MASS_EXPONENT);
+			double mass = getMass() * Math.pow(ratio, TWEAKSCALE_MASS_EXPONENT);
+			double thrust = getThrust() * Math.pow(ratio, TWEAKSCALE_THRUST_EXPONENT);
 			return new Engine(getName() + " (TweakScale " + scale + "m)", getMod(), dryMass, mass, thrust, getIsp(), scale, getPropellants());
 		}
 		return this;
