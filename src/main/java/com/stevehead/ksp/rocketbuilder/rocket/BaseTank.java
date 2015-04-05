@@ -1,7 +1,12 @@
 package com.stevehead.ksp.rocketbuilder.rocket;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.collections4.ListUtils;
+
 import com.stevehead.ksp.rocketbuilder.interfaces.Expendable;
-import com.stevehead.ksp.rocketbuilder.interfaces.PropellantRequired;
 
 /**
  * Any object with expendable propellants.
@@ -9,7 +14,7 @@ import com.stevehead.ksp.rocketbuilder.interfaces.PropellantRequired;
  * @author Steve Johnson
  *
  */
-public abstract class BaseTank extends BaseComponent implements Expendable, PropellantRequired {
+public abstract class BaseTank extends BaseComponent implements Expendable {
 	/**
 	 * Default propellants when no propellants are given in constructor.
 	 */
@@ -56,6 +61,35 @@ public abstract class BaseTank extends BaseComponent implements Expendable, Prop
 		} else {
 			return DEFAULT_PROPELLANTS;
 		}
+	}
+	
+	/**
+	 * Returns the combined dry mass of the expendable objects.
+	 * 
+	 * @param expendables		the objects to combine their dry mass
+	 * @return					the combined dry mass in kg
+	 */
+	protected static double calculateDryMass(Expendable... expendables) {
+		double dryMass = 0;
+		for (Expendable expendableObject : expendables) {
+			dryMass += expendableObject.getDryMass();
+		}
+		return dryMass;
+	}
+	
+	/**
+	 * Returns the combined types of propellants used.
+	 * 
+	 * @param expendables		the objects to combine their dry mass
+	 * @return					the combined dry mass in kg
+	 */
+	protected static Propellant[] combinePropellants(Expendable... expendables) {
+		List<Propellant> propellants = new ArrayList<Propellant>();
+		for (Expendable expendableObject : expendables) {
+			List<Propellant> thisPropellants = Arrays.asList(expendableObject.getPropellants());
+			propellants = ListUtils.union(propellants, thisPropellants);
+		}
+		return propellants.toArray(new Propellant[propellants.size()]);
 	}
 	
 	@Override

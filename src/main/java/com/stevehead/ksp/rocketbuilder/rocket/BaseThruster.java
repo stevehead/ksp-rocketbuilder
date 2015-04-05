@@ -55,6 +55,36 @@ public abstract class BaseThruster extends BaseTank implements Thrustable {
 	}
 	
 	/**
+	 * Calculates the combined thrust of the engines.
+	 * 
+	 * @param engines		engines to be combined
+	 * @return				the total thrust of the engines
+	 */
+	protected static double calculateThrust(Thrustable... engines) {
+		double thrust = 0;
+		for (Thrustable engine : engines) {
+			thrust += engine.getThrust();
+		}
+		return thrust;
+	}
+	
+	/**
+	 * Calculates the combined specific impulse of the engines.
+	 * 
+	 * @param engines		engines to be combined
+	 * @return				the combined Isp of the engines
+	 */
+	protected static double calculateIsp(Thrustable[] engines) {
+		double numerator = 0;
+		double denominator = 0;
+		for (Thrustable engine : engines) {
+			numerator += engine.getThrust();
+			denominator += engine.getThrust() / engine.getIsp();
+		}
+		return numerator / denominator;
+	}
+	
+	/**
 	 * Calculates the thrust-to-weight ratio.
 	 * 
 	 * @param mass			the mass in kg
