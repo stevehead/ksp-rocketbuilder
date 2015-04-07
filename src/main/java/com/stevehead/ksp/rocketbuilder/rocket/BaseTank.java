@@ -42,7 +42,7 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 		MONOPROPELLANT,
 		SOLID_FUEL,
 		LIQUID_FUEL,
-		XEON_GAS,
+		XENON_GAS,
 		NONE,
 		UNKNOWN
 	}
@@ -136,7 +136,7 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 			case MONOPROPELLANT:
 				return Type.MONOPROPELLANT;
 			case XENON_GAS:
-				return Type.XEON_GAS;
+				return Type.XENON_GAS;
 			case SOLID_FUEL:
 				return Type.SOLID_FUEL;
 			default:
