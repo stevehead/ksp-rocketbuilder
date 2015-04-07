@@ -21,15 +21,32 @@ public class StackTest {
 	
 	@Test
 	public void testGetDryMass() {
-		double expectedDryMass = fuelTankMass * ProceduralTank.PROCEDURAL_TANK_LF_OX_MASS_RATIO;
-		expectedDryMass += testEngine.getDryMass();
+		double expectedDryMass = fuelTankMass * ProceduralTank.PROCEDURAL_TANK_LF_OX_MASS_RATIO + testEngine.getDryMass();
 		assertEquals(expectedDryMass, testStack.getDryMass(), 1e-7);
 	}
 	
 	@Test
 	public void testGetMass() {
-		double expectedDryMass = fuelTankMass + testEngine.getMass();
-		assertEquals(expectedDryMass, testStack.getMass(), 1e-7);
+		double expectedMass = fuelTankMass + testEngine.getMass();
+		assertEquals(expectedMass, testStack.getMass(), 1e-7);
+	}
+	
+	@Test
+	public void testGetDeltaV() {
+		double expectedDryMass = fuelTankMass * ProceduralTank.PROCEDURAL_TANK_LF_OX_MASS_RATIO + testEngine.getDryMass();
+		double expectedMass = fuelTankMass + testEngine.getMass();
+		double expectedDeltaV = Stack.KERBIN_GRAVITY * testEngine.getIsp() * Math.log(expectedMass / expectedDryMass);
+		assertEquals(expectedDeltaV, testStack.getDeltaV(), 1e-7);
+	}
+	
+	@Test
+	public void testDuplicate() {
+		int testStackNumber = 3;
+		Stack[] testStackArray = testStack.duplicate(testStackNumber);
+		assertEquals(testStackNumber, testStackArray.length);
+		for (Stack stack : testStackArray) {
+			assertSame(testStack, stack);
+		}
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
