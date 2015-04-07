@@ -1,5 +1,8 @@
 package com.stevehead.ksp.rocketbuilder.rocket;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.stevehead.ksp.rocketbuilder.game.Mod;
 import com.stevehead.ksp.rocketbuilder.interfaces.Moddable;
 import com.stevehead.ksp.rocketbuilder.interfaces.Nameable;
@@ -61,6 +64,44 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Tweaksca
 	 */
 	public Engine(String name, Mod mod, double mass, double thrust, double isp, double size, Propellant... propellants) {
 		this(name, mod, mass, mass, thrust, isp, size, propellants);
+	}
+	
+	/**
+	 * Searches and returns an array of engines from a particular mod.
+	 * 
+	 * @param mod		the mod in question
+	 * @return			array of engines
+	 */
+	public static Engine[] getEngines(Mod... mods) {
+		ArrayList<Engine> engines = new ArrayList<Engine>();
+		
+		for (Engine.PreDefined engine : Engine.PreDefined.values()) {
+			if (Arrays.asList(mods).contains(engine.getMod())) {
+				engines.add(engine.toEngine());
+			}
+		}
+		
+		return engines.toArray(new Engine[engines.size()]);
+	}
+	
+	/**
+	 * Searches and returns an array of engines with a particular diameter.
+	 * 
+	 * @param size		the diameter
+	 * @return			array of engines
+	 */
+	public static Engine[] getEngines(double... sizes) {
+		ArrayList<Engine> engines = new ArrayList<Engine>();
+		
+		for (Engine.PreDefined engine : Engine.PreDefined.values()) {
+			for (double size : sizes) {
+				if (size == engine.getSize()) {
+					engines.add(engine.toEngine());
+				}
+			}
+		}
+		
+		return engines.toArray(new Engine[engines.size()]);
 	}
 	
 	@Override
