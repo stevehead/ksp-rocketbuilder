@@ -33,21 +33,6 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	protected final Type type;
 	
 	/**
-	 * Types of fuel tanks.
-	 * 
-	 * @author Steve Johnson
-	 */
-	protected enum Type {
-		LIQUID_FUEL_AND_OXIDIZER,
-		MONOPROPELLANT,
-		SOLID_FUEL,
-		LIQUID_FUEL,
-		XENON_GAS,
-		NONE,
-		UNKNOWN
-	}
-	
-	/**
 	 * @param dryMass			the dry mass in kg
 	 * @param mass				the total mass in kg
 	 * @param propellants		the propellants used
@@ -65,13 +50,6 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	 */
 	protected BaseTank(double mass, Propellant... propellants) {
 		this(mass, mass, propellants);
-	}
-	
-	/**
-	 * @return		the tank type
-	 */
-	public Type getType() {
-		return type;
 	}
 	
 	/**
@@ -176,5 +154,10 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	@Override
 	public Propellant[] getPropellants() {
 		return propellants;
+	}
+	
+	@Override
+	public Type getType() {
+		return type;
 	}
 }

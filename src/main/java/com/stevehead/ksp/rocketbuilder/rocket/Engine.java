@@ -259,5 +259,10 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Tweaksca
 		public Mod getMod() {
 			return engine.getMod();
 		}
+		
+		@Override
+		public Type getType() {
+			return engine.getType();
+		}
 	}
 }

@@ -17,9 +17,31 @@ public interface Expendable extends Massive {
 	double getDryMass();
 	
 	/**
+	 * Types of fuel tanks.
+	 * 
+	 * @author Steve Johnson
+	 */
+	public enum Type {
+		LIQUID_FUEL_AND_OXIDIZER,
+		MONOPROPELLANT,
+		SOLID_FUEL,
+		LIQUID_FUEL,
+		XENON_GAS,
+		NONE,
+		UNKNOWN
+	}
+	
+	/**
 	 * The propellants required.
 	 * 
 	 * @return		propellants
 	 */
 	Propellant[] getPropellants();
+	
+	/**
+	 * The type of tank/engine.
+	 * 
+	 * @return		the tank/engine type
+	 */
+	Type getType();
 }
