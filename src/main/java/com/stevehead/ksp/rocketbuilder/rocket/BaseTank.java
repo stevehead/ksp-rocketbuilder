@@ -28,14 +28,50 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	protected final Propellant[] propellants;
 	
 	/**
+	 * Type of tank.
+	 */
+	protected final Type type;
+	
+	/**
+	 * Types of fuel tanks.
+	 * 
+	 * @author Steve Johnson
+	 */
+	protected enum Type {
+		LIQUID_FUEL_AND_OXIDIZER,
+		MONOPROPELLANT,
+		SOLID_FUEL,
+		LIQUID_FUEL,
+		XEON_GAS,
+		NONE,
+		UNKNOWN,
+		AUTO
+	}
+	
+	/**
+	 * @param dryMass			the dry mass in kg
+	 * @param mass				the total mass in kg
+	 * @param type				the tank type
+	 * @param propellants		the propellants used
+	 */
+	protected BaseTank(double dryMass, double mass, Type type, Propellant... propellants) {
+		super(mass);
+		if (type == Type.AUTO) {
+			this.type = determineTankType(propellants);
+		} else {
+			this.type = type;
+		}
+		this.dryMass = dryMass;
+		this.propellants = determinePropellants(propellants);
+	}
+	
+	/**
 	 * @param dryMass			the dry mass in kg
 	 * @param mass				the total mass in kg
 	 * @param propellants		the propellants used
 	 */
 	protected BaseTank(double dryMass, double mass, Propellant... propellants) {
-		super(mass);
-		this.dryMass = dryMass;
-		this.propellants = determinePropellants(propellants);
+		this(dryMass, mass, Type.AUTO, propellants);
 	}
 	
 	/**
@@ -44,6 +80,13 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	 */
 	protected BaseTank(double mass, Propellant... propellants) {
 		this(mass, mass, propellants);
+	}
+	
+	/**
+	 * @return		the tank type
+	 */
+	public Type getType() {
+		return type;
 	}
 	
 	/**
@@ -90,6 +133,54 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 			}
 		}
 		return propellants.toArray(new Propellant[propellants.size()]);
+	}
+	
+	/**
+	 * Helper method that determines the tank type from the propellants used.
+	 * Full functionality may be added gradually.
+	 * 
+	 * @param propellants		the propellants used
+	 * @return					the type of tank
+	 */
+	protected static Type determineTankType(Propellant... propellants) {
+		if (propellants.length == 0) return Type.NONE;
+		if (propellants.length == 1) {
+			switch (propellants[0]) {
+			case LIQUID_FUEL:
+				return Type.LIQUID_FUEL;
+			case MONOPROPELLANT:
+				return Type.MONOPROPELLANT;
+			case XENON_GAS:
+				return Type.XEON_GAS;
+			case SOLID_FUEL:
+				return Type.SOLID_FUEL;
+			default:
+				return Type.UNKNOWN;
+			}
+		}
+		if (propellants.length > 2) return Type.UNKNOWN;
+		
+		boolean usingLF = false;
+		boolean usingOX = false;
+		
+		for (Propellant propellant : propellants) {
+			switch (propellant) {
+			case LIQUID_FUEL:
+				usingLF = true;
+				break;
+			case OXIDIZER:
+				usingOX = true;
+				break;
+			default:
+				break;
+			}
+		}
+		
+		if (usingLF && usingOX) {
+			return Type.LIQUID_FUEL_AND_OXIDIZER;
+		}
+		
+		return Type.UNKNOWN;
 	}
 	
 	@Override
