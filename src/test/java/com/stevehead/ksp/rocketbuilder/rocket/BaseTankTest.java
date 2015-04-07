@@ -64,7 +64,7 @@ public class BaseTankTest {
 	}
 	
 	@Test
-	public void determineTankType() {
+	public void testDetermineTankType() {
 		assertEquals(TestTank.Type.LIQUID_FUEL_AND_OXIDIZER, TestTank.determineTankType(Propellant.LIQUID_FUEL, Propellant.OXIDIZER));
 		assertEquals(TestTank.Type.MONOPROPELLANT, TestTank.determineTankType(Propellant.MONOPROPELLANT));
 		assertEquals(TestTank.Type.LIQUID_FUEL, TestTank.determineTankType(Propellant.LIQUID_FUEL));
@@ -72,6 +72,11 @@ public class BaseTankTest {
 		assertEquals(TestTank.Type.SOLID_FUEL, TestTank.determineTankType(Propellant.SOLID_FUEL));
 		assertEquals(TestTank.Type.NONE, TestTank.determineTankType());
 		assertEquals(TestTank.Type.UNKNOWN, TestTank.determineTankType(Propellant.LIQUID_FUEL, Propellant.XENON_GAS));
+	}
+	
+	@Test
+	public void testNoProvidedPropellantsTank() {
+		assertEquals(TestTank.Type.LIQUID_FUEL_AND_OXIDIZER, testTank.getType());
 	}
 	
 	private static class TestTank extends BaseTank {
