@@ -101,8 +101,8 @@ public abstract class BaseThruster extends BaseTank implements Thrustable {
 	}
 	
 	@Override
-	public final double getIsp() {
-		return Engine.getIspScaler() * isp;
+	public double getIsp() {
+		return isp;
 	}
 	
 	@Override

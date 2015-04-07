@@ -138,6 +138,11 @@ public class Engine extends BaseThruster implements Moddable, Nameable, Tweaksca
 		return this;
 	}
 	
+	@Override
+	public double getIsp() {
+		return getIspScaler() * isp;
+	}
+	
 	/**
 	 * Gets the current ISP Scaler.
 	 * 
