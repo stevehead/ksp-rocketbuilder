@@ -34,7 +34,7 @@ public class ProceduralTank extends FuelTank {
 		case MONOPROPELLANT:
 			return PROCEDURAL_TANK_MP_MASS_RATIO * totalMass;
 		default:
-			throw new IllegalArgumentException("The provided tank type is currently not supported" + type + ".");
+			throw new IllegalArgumentException("The provided tank type is currently not supported: " + type + ".");
 		}
 	}
 }

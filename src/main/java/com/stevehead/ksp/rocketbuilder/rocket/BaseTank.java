@@ -44,25 +44,7 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 		LIQUID_FUEL,
 		XEON_GAS,
 		NONE,
-		UNKNOWN,
-		AUTO
-	}
-	
-	/**
-	 * @param dryMass			the dry mass in kg
-	 * @param mass				the total mass in kg
-	 * @param type				the tank type
-	 * @param propellants		the propellants used
-	 */
-	protected BaseTank(double dryMass, double mass, Type type, Propellant... propellants) {
-		super(mass);
-		if (type == Type.AUTO) {
-			this.type = determineTankType(propellants);
-		} else {
-			this.type = type;
-		}
-		this.dryMass = dryMass;
-		this.propellants = determinePropellants(propellants);
+		UNKNOWN
 	}
 	
 	/**
@@ -71,7 +53,10 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	 * @param propellants		the propellants used
 	 */
 	protected BaseTank(double dryMass, double mass, Propellant... propellants) {
-		this(dryMass, mass, Type.AUTO, propellants);
+		super(mass);
+		this.type = determineTankType(propellants);
+		this.dryMass = dryMass;
+		this.propellants = determinePropellants(propellants);
 	}
 	
 	/**
