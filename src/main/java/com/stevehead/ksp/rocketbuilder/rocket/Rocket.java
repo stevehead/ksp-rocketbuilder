@@ -61,6 +61,20 @@ public class Rocket {
 			this(0);
 		}
 		
+		public Builder addStage(Stage stage) {
+			stages.add(stage);
+			return this;
+		}
+		
+		public Builder addStage(Massive payload, FuelTank fuelTank, Thrustable engine, int stackNumber) {
+			Stage stage = new Stage(payload, new Stack(fuelTank, engine), stackNumber);
+			return addStage(stage);
+		}
+		
+		public Builder addStage(Massive payload, FuelTank fuelTank, Thrustable engine) {
+			return addStage(payload, fuelTank, engine, 1);
+		}
+		
 		public Builder addStage(FuelTank fuelTank, Thrustable engine, int stackNumber) {
 			Massive payload;
 			if (stages.isEmpty()) {
@@ -68,10 +82,7 @@ public class Rocket {
 			} else {
 				payload = stages.get(stages.size() - 1);
 			}
-			Stack stack = new Stack(fuelTank, engine);
-			Stage stage = new Stage(payload, stack, stackNumber);
-			stages.add(stage);
-			return this;
+			return addStage(payload, fuelTank, engine, stackNumber);
 		}
 		
 		public Builder addStage(FuelTank fuelTank, Thrustable engine) {
