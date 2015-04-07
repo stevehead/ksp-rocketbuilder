@@ -13,7 +13,7 @@ public class Stage extends BaseThruster {
 				payload.getMass() + calculateDryMass(stacks),
 				payload.getMass() + calculateMass(stacks),
 				calculateThrust(stacks),
-				calculateThrust(stacks),
+				calculateIsp(stacks),
 				combinePropellants(stacks)
 				);
 	}
