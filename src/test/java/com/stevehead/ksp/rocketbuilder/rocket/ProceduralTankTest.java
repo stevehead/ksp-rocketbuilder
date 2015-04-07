@@ -2,8 +2,6 @@ package com.stevehead.ksp.rocketbuilder.rocket;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,14 +16,6 @@ public class ProceduralTankTest {
 	public static void setUpBeforeClass() throws Exception {
 		liquidFuelOxidizerTank = new ProceduralTank(liquidFuelOxidizerTankMass);
 		monopropellantTank = new ProceduralTank(monopropellantTankMass, Propellant.MONOPROPELLANT);
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test
