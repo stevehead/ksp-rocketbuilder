@@ -4,35 +4,19 @@ public class ProceduralTank extends FuelTank {
 	/**
 	 * The dry-to-wet mass ratio of a LX/OX procedural tank.
 	 */
-	public static final double LF_OX_MASS_RATIO = 1.0 / 9.0;
+	public static final double PROCEDURAL_TANK_LF_OX_MASS_RATIO = 1.0 / 9.0;
 	
 	/**
 	 * The dry-to-wet mass ratio of a monopropellant procedural tank.
 	 */
-	public static final double MP_MASS_RATIO = 1.0 / 5.0;
-	
-	/**
-	 * @param totalMass		total mass in kg
-	 * @param type			type of tank
-	 * @param propellants	propellants used
-	 */
-	private ProceduralTank(double totalMass, Type type, Propellant... propellants) {
-		super(determineDryMass(totalMass, type), totalMass, type, propellants);
-	}
+	public static final double PROCEDURAL_TANK_MP_MASS_RATIO = 1.0 / 5.0;
 	
 	/**
 	 * @param totalMass		total mass in kg
 	 * @param propellants	propellants used
 	 */
 	public ProceduralTank(double totalMass, Propellant... propellants) {
-		this(totalMass, Type.AUTO, propellants);
-	}
-	
-	/**
-	 * @param totalMass		total mass in kg
-	 */
-	public ProceduralTank(double totalMass) {
-		this(totalMass, Type.AUTO, DEFAULT_PROPELLANTS);
+		super(determineDryMass(totalMass, propellants), totalMass, propellants);
 	}
 	
 	/**
@@ -42,12 +26,13 @@ public class ProceduralTank extends FuelTank {
 	 * @param type			type of tank
 	 * @return				dry mass in kg
 	 */
-	private static double determineDryMass(double totalMass, Type type) {
+	private static double determineDryMass(double totalMass, Propellant... propellants) {
+		Type type = determineTankType(propellants);
 		switch (type) {
 		case LIQUID_FUEL_AND_OXIDIZER:
-			return LF_OX_MASS_RATIO * totalMass;
+			return PROCEDURAL_TANK_LF_OX_MASS_RATIO * totalMass;
 		case MONOPROPELLANT:
-			return MP_MASS_RATIO * totalMass;
+			return PROCEDURAL_TANK_MP_MASS_RATIO * totalMass;
 		default:
 			throw new IllegalArgumentException("The provided tank type is currently not supported" + type + ".");
 		}
