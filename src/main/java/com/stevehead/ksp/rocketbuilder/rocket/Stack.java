@@ -14,9 +14,8 @@ public class Stack extends BaseThruster {
 	 * @param engine		the stack's engine(s)
 	 */
 	public Stack(FuelTank fuelTank, Thrustable engine) {
-		super(fuelTank.getDryMass() + engine.getDryMass(),
-				fuelTank.getMass() + engine.getMass(), engine.getThrust(),
-				engine.getIsp(), combinePropellants(fuelTank, engine));
+		super(calculateDryMass(fuelTank, engine), calculateMass(fuelTank, engine),
+				engine.getThrust(), engine.getIsp(), combinePropellants(fuelTank, engine));
 		
 		if (fuelTank.getType() != engine.getType()) {
 			throw new IllegalArgumentException("Fuel tank and engines types must match.");
