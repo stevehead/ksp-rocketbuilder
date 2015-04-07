@@ -27,7 +27,7 @@ public class ProceduralTank extends FuelTank {
 	 * @return				dry mass in kg
 	 */
 	private static double determineDryMass(double totalMass, Propellant... propellants) {
-		Type type = determineTankType(propellants);
+		Type type = determineTankType(determinePropellants(propellants));
 		switch (type) {
 		case LIQUID_FUEL_AND_OXIDIZER:
 			return PROCEDURAL_TANK_LF_OX_MASS_RATIO * totalMass;

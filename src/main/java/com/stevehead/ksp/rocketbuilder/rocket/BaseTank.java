@@ -54,9 +54,9 @@ public abstract class BaseTank extends BaseComponent implements Expendable {
 	 */
 	protected BaseTank(double dryMass, double mass, Propellant... propellants) {
 		super(mass);
-		this.type = determineTankType(propellants);
 		this.dryMass = dryMass;
 		this.propellants = determinePropellants(propellants);
+		this.type = determineTankType(this.propellants);
 	}
 	
 	/**
